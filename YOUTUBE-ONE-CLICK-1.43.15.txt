@@ -1,0 +1,7 @@
+BaByLon v1.43.15 — YouTube giao diện gọn + Chạy cả 3
+- Header thu nhỏ, giữ tên video, bỏ 3 thẻ trùng chức năng.
+- Nút Chạy cả 3: phụ đề (cache nếu có) → Gemini tóm tắt nhanh (cache nếu có) → bình luận.
+- Mỗi bước có trạng thái riêng. Nếu phụ đề lỗi, Gemini được bỏ qua nhưng bình luận vẫn chạy.
+- Không tự tải file; dùng nút SRT/TXT và TXT/CSV hiện có khi cần.
+- Bản tóm tắt chỉ dùng phụ đề, không dùng bình luận.
+- Giữ nguyên các chức năng khác và cơ chế tự thu gọn.

@@ -1,0 +1,37 @@
+BaByLon v1.43.16 — Trung tâm AI dùng chung
+===========================================
+
+CẬP NHẬT
+- Trung tâm AI BaByLon gộp Groq, OpenRouter Free và kho Gemini hiện có.
+- Chọn tự động (Groq → Gemini → OpenRouter), hoặc cố định nhà cung cấp.
+- Chỉ dùng model OpenRouter có đuôi :free. Không tự nạp tiền hoặc bật thanh toán.
+- Thêm ô AI Sáng tạo vào lưới công cụ; tự thu gọn menu như các công cụ khác.
+- AI Sáng tạo: kịch bản, nội dung Facebook, prompt ảnh/video, tiêu đề YouTube,
+  viết lại, dịch, yêu cầu tùy chỉnh; nút gửi prompt sang Flow Auto.
+- TTS: giọng đọc sẵn có của trình duyệt/hệ điều hành, không xuất file âm thanh.
+- STT: Groq Whisper nhận file âm thanh < 20 MB (cần Groq API key).
+- YouTube: tóm tắt phụ đề qua AI đã chọn; giữ SRT, bình luận, nút Chạy cả 3.
+- Dịch ngôn ngữ: có thể dùng nhà cung cấp AI đã chọn cho văn bản, SRT,
+  và dịch SRT hàng loạt; giữ thứ tự và timestamp, từ chối JSON sai cấu trúc.
+- Facebook Duyệt bài: giữ Gemini khi chọn Tự động hoặc Gemini; có thể chọn
+  Groq/OpenRouter thủ công. Kết quả vẫn cần kiểm tra trước khi tin tưởng.
+
+CÁCH DÙNG
+1. Mở BaByLon > Trung tâm AI BaByLon.
+2. Thêm API key Groq/OpenRouter của chính bạn, hoặc mở Kho Gemini API.
+3. Chọn nhà cung cấp. Chế độ Tự động ưu tiên Groq rồi Gemini rồi OpenRouter.
+4. Chọn ô AI Sáng tạo trong lưới để viết nội dung, tạo prompt hoặc tạo giọng đọc.
+5. Các công cụ YouTube và Dịch ngôn ngữ có thể sử dụng cấu hình AI này.
+
+GIỚI HẠN VÀ BẢO MẬT
+- Tài khoản Groq/Gemini phải đang ở Free tier nếu bạn muốn không phát sinh phí.
+  BaByLon không thể kiểm tra hoặc bảo đảm tình trạng billing trên tài khoản.
+- OpenRouter chỉ gọi model có tên kết thúc bằng :free; quota thay đổi theo nhà cung cấp.
+- Key Groq/OpenRouter lưu bằng chrome.storage.local (không mã hóa thêm),
+  không đồng bộ qua Chrome Sync. Không chia sẻ ZIP đã nhập key/tài khoản.
+- Nội dung nhập, phụ đề, hoặc bài Facebook sẽ được gửi tới API nhà cung cấp
+  đã chọn; trong chế độ tự động có thể chuyển sang nhà cung cấp khác khi lỗi.
+- Giọng đọc TTS là speechSynthesis trên máy, không phải API giọng nói AI cao cấp.
+- Groq Whisper có thể giới hạn kích thước, định dạng, tốc độ theo tài khoản.
+- Không có API miễn phí nào bảo đảm mọi chức năng hoặc hoạt động vô hạn.
+- Kiểm thử nội bộ bằng API mô phỏng, chưa thử với API key thực tế của người dùng.

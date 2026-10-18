@@ -1,0 +1,9 @@
+BaByLon 1.43.12 — Sửa Gemini tóm tắt video YouTube
+
+- Không gọi cố định gemini-2.5-flash.
+- Tự lấy danh sách model hỗ trợ generateContent theo từng Gemini API key.
+- Ưu tiên model Flash mới và dự phòng model/API key khác khi model bị giới hạn.
+- Thông báo tên model, API key (số thứ tự) khi tóm tắt thành công.
+- Giữ nguyên phụ đề SRT, bảng Transcript dự phòng, Top 50 bình luận, UI tự thu gọn và AssistiveTouch.
+
+Lưu ý: API key cần quyền truy cập model và quota còn lại. Chưa thể kiểm thử trên API key riêng của người dùng.

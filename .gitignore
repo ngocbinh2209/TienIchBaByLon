@@ -1,0 +1,14 @@
+.local-private/
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+node_modules/
+*.log
+Thumbs.db
+.DS_Store

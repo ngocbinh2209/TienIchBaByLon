@@ -1,0 +1,9 @@
+BaByLon v1.43.17 · Universal Video AI
+
+- Trình phân tích video hỗ trợ YouTube và trang web HTTP(S) có video HTML5 và phụ đề truy cập được.
+- Dò textTracks/cues, thẻ track[src] ở các frame được phép, đọc SRT/VTT; nhập SRT/VTT thủ công.
+- Chọn tệp âm thanh/video nhỏ hơn 20MB để Groq Whisper tạo phụ đề có mốc thời gian. Có thể chủ động ghi âm tab đang phát bằng tabCapture và chép lời phần đã ghi; không tải nguồn video bị hạn chế.
+- Smart AI chạy tóm tắt nhanh và phân tích chuyên sâu song song; hiện kết quả độc lập.
+- Top 50 bình luận chỉ hỗ trợ YouTube; các công cụ cũ giữ nguyên.
+- Không thể đảm bảo 100% trang video: DRM, cross-origin restrictions, canvas subtitles, custom players, và các nguồn không có phụ đề.
+- Chưa kiểm thử bằng API key thực hoặc với mọi website.

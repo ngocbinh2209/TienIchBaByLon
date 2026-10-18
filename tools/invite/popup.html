@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tự động mời người đã thích</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="../embedded-dark.css">
+</head>
+<body>
+  <main class="panel">
+    <header class="header">
+      <h1>Mời người đã thích</h1>
+      <p>Mở danh sách người đã thích trên Facebook trước khi chạy.</p>
+    </header>
+
+    <label class="field">
+      <span>Số người muốn mời</span>
+      <input id="inviteCount" type="number" min="1" max="500" step="1" value="20">
+    </label>
+
+    <label class="field">
+      <span>Độ trễ mỗi lần bấm (ms)</span>
+      <input id="delayTime" type="number" min="500" max="10000" step="100" value="1800">
+    </label>
+
+    <label class="field">
+      <span>Thời gian chờ tải tối đa (giây)</span>
+      <input id="waitTime" type="number" min="10" max="600" step="5" value="120">
+    </label>
+
+    <div class="actions">
+      <button id="startBtn" type="button">Bắt đầu mời</button>
+      <button id="stopBtn" class="secondary" type="button">Dừng</button>
+    </div>
+
+    <p id="status" class="status">Sẵn sàng.</p>
+  </main>
+
+  <script src="popup.js"></script>
+  <script src="../theme-sync.js"></script>
+</body>
+</html>

@@ -1,0 +1,137 @@
+{
+  "manifest_version": 3,
+  "name": "BaByLon",
+  "version": "1.43.17",
+  "description": "BaByLon 1.43.17 - Universal Video AI: read accessible HTML5 SRT/VTT, import subtitles, Groq Whisper audio files, parallel fast/deep AI; preserves YouTube comments and Multi-AI.",
+  "permissions": [
+    "activeTab",
+    "clipboardWrite",
+    "debugger",
+    "downloads",
+    "notifications",
+    "scripting",
+    "sidePanel",
+    "storage",
+    "tabs",
+    "unlimitedStorage",
+    "webNavigation",
+    "declarativeNetRequestWithHostAccess",
+    "webRequest",
+    "tabCapture"
+  ],
+  "host_permissions": [
+    "*://*.facebook.com/*",
+    "https://*.bilibili.com/*",
+    "https://*.douyin.com/*",
+    "https://*.googleusercontent.com/*",
+    "https://*.googlevideo.com/*",
+    "https://api.ipify.org/*",
+    "https://api64.ipify.org/*",
+    "https://bilibili.com/*",
+    "https://dns.google/*",
+    "https://douyin.com/*",
+    "https://facebook.com/*",
+    "https://fb.watch/*",
+    "https://googlevideo.com/*",
+    "https://ipwho.is/*",
+    "https://m.facebook.com/*",
+    "https://m.tiktok.com/*",
+    "https://m.youtube.com/*",
+    "https://tiktok.com/*",
+    "https://www.bilibili.com/*",
+    "https://www.douyin.com/*",
+    "https://www.facebook.com/*",
+    "https://www.google.com/*",
+    "https://www.googleapis.com/*",
+    "https://www.tiktok.com/*",
+    "https://www.youtube.com/*",
+    "https://youtu.be/*",
+    "https://youtube.com/*",
+    "<all_urls>",
+    "https://studio.youtube.com/*",
+    "https://generativelanguage.googleapis.com/*",
+    "https://api.qrserver.com/*",
+    "https://api.vietqr.io/*",
+    "https://img.vietqr.io/*",
+    "https://tmpfiles.org/*",
+    "https://api.groq.com/*",
+    "https://openrouter.ai/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_title": "BaByLon",
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.facebook.com/*"
+      ],
+      "js": [
+        "tools/autopost/content.js"
+      ],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "assistive-touch.js"
+      ],
+      "run_at": "document_idle",
+      "match_about_blank": true,
+      "all_frames": false
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "popup.html",
+        "popup.css",
+        "popup.js",
+        "date-checker.js",
+        "video-downloader.js",
+        "series-downloader.js",
+        "ip-checker.js",
+        "dock-controller.js",
+        "icons/*",
+        "tools/*/*",
+        "youtube-analytics.js",
+        "twofa.js",
+        "gemini-api-center.js",
+        "translator.js",
+        "qr-tool.js",
+        "flow-batch.js",
+        "sidepanel.html",
+        "assistive-touch.js",
+        "youtube-video-tools.js",
+        "youtube-caption-reader.js",
+        "ai-provider-hub.js",
+        "ai-studio.js",
+        "universal-caption-reader.js"
+      ],
+      "matches": [
+        "<all_urls>"
+      ]
+    }
+  ],
+  "side_panel": {
+    "default_path": "sidepanel.html"
+  },
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAv5Q89YEzJ19arerlZ3peTe9740bca7F8cfKCdvs6GTxQi/DvqkloNAATfo+pUTERhWHrkQJGdJsAVyAN2MlkQdSL+SwLBRqY7TNhufatSpdbMad/Dvy8s4e0OC//uqXpBs7k90yN0jtyunYWIGTYnkQIjCC5WfPhGKlP/bB7Bl8M22tc9nJGWuCTiLlw3md1kqhplK9X8GhF8er/qqpafjY16rus4w77xgZaGquSS1yay/sHiUOvDw5xmDyVcEtinzVQX9isys/pQ/jZfTpq4qepIrb+h8oEhbHPH2nMZJ9/AujxVIWBdMfrLnIKd29oVYyv+w+0T4pGaDWdi16IjwIDAQAB"
+}

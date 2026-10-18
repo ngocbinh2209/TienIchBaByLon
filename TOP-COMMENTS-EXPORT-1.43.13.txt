@@ -1,0 +1,9 @@
+BaByLon v1.43.13 — Định dạng xuất Top bình luận
+
+- Nút Tải TXT xuất mỗi bình luận thành một dòng:
+  Bình luận Top1: nội dung bình luận thứ nhất
+  Bình luận Top2: nội dung bình luận thứ hai
+- Xếp hạng giữ đúng thứ tự theo lượt thích trong BaByLon.
+- Nếu chỉ thu thập được 6 bình luận, chỉ xuất Top1 đến Top6.
+- Nút Xuất CSV chi tiết (Excel) được giữ riêng để không mất tính năng cũ.
+- Các chức năng SRT, Gemini, menu tự thu gọn và AssistiveTouch giữ nguyên.

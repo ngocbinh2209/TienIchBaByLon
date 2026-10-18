@@ -1,0 +1,5 @@
+BaByLon v1.43.10 - Menu chức năng tự thu gọn
+- Chọn một chức năng => menu thu gọn, hiển thị tên chức năng đang dùng.
+- Nhấn thanh chức năng => mở lại lưới công cụ.
+- Trạng thái thu gọn được nhớ khi mở lại popup/side panel.
+- Giữ nguyên chức năng, trang nội dung và Trung tâm Gemini API.

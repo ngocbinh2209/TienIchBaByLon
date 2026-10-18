@@ -1,0 +1,35 @@
+{
+  "manifest_version": 3,
+  "name": "Facebook Group Auto Moderator",
+  "version": "1.42.77",
+  "description": "Quét bài trong Facebook Group và tự động duyệt/reject theo quy tắc tuyển dụng.",
+  "permissions": [
+    "storage",
+    "activeTab",
+    "scripting"
+  ],
+  "host_permissions": [
+    "*://*.facebook.com/*",
+    "https://generativelanguage.googleapis.com/*",
+    "https://api.groq.com/*",
+    "https://openrouter.ai/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "FB Group Auto Mod"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "*://*.facebook.com/*"
+      ],
+      "js": [
+        "content_script.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ]
+}

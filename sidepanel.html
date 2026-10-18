@@ -1,0 +1,1885 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>BaByLon Side Panel</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body class="native-sidepanel">
+  <main class="app">
+    <header class="brand-header">
+      <div class="brand-mark">B</div>
+      <div class="brand-copy">
+        <h1>BaByLon</h1>
+        <p>Bộ tiện ích đa chức năng trên Chrome</p>
+      </div>
+      <div class="dock-launcher-wrap" id="dockLauncherWrap">
+        <button id="dockLauncherBtn" class="dock-launcher-btn" type="button"
+                title="Mở BaByLon trong Side Panel — Chrome tự co trang web">▤</button>
+      </div>
+      <div class="header-ui-controls" aria-label="Tùy chỉnh nhanh giao diện">
+        <button id="fontDecreaseBtn" class="header-control-btn font-control-btn" type="button" title="Giảm cỡ chữ">A−</button>
+        <button id="fontIncreaseBtn" class="header-control-btn font-control-btn" type="button" title="Tăng cỡ chữ">A+</button>
+        <button id="themeToggleBtn" class="header-control-btn theme-toggle-btn" type="button" title="Chuyển sang chế độ tối" aria-label="Đổi chế độ sáng tối">
+          <span class="theme-toggle-inner" aria-hidden="true">
+            <svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="4.2" fill="currentColor"/>
+              <g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                <path d="M12 1.7v3"/><path d="M12 19.3v3"/>
+                <path d="M1.7 12h3"/><path d="M19.3 12h3"/>
+                <path d="m4.7 4.7 2.1 2.1"/><path d="m17.2 17.2 2.1 2.1"/>
+                <path d="m19.3 4.7-2.1 2.1"/><path d="m6.8 17.2-2.1 2.1"/>
+              </g>
+            </svg>
+            <svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24">
+              <path d="M19.7 15.2A8.3 8.3 0 0 1 8.8 4.3 8.7 8.7 0 1 0 19.7 15.2Z" fill="currentColor"/>
+            </svg>
+          </span>
+        </button>
+      </div>
+      <span class="version-badge">BaByLon</span>
+    </header>
+
+    <div class="current-platform-bar" id="currentPlatformBar">
+      <span class="current-platform-label">Trang hiện tại</span>
+      <span class="current-platform-pill unknown" id="currentPlatformPill">Đang nhận diện...</span>
+      <span class="current-platform-hint">Công cụ phù hợp sẽ được viền sáng</span>
+    </div>
+
+
+    <details id="globalAiCenter" class="bah-center">
+      <summary class="bah-summary"><span class="bah-icon">🧠</span><span class="bah-summary-text"><strong>Trung tâm AI BaByLon</strong><small>Groq · Gemini · OpenRouter · dùng chung nhiều công cụ</small></span><span id="bahKeyCount" class="bah-count">0 API ngoài</span><span>⌄</span></summary>
+      <div class="bah-center-body">
+        <label for="bahProvider">Nhà cung cấp AI mặc định</label>
+        <select id="bahProvider" class="bah-select"><option value="auto">⚡ Tự động · Groq → Gemini → OpenRouter</option><option value="groq">Groq · tốc độ</option><option value="gemini">Gemini · chất lượng</option><option value="openrouter">OpenRouter · chỉ model :free</option></select>
+        <p class="bah-note">Chỉ dùng API key do bạn tự thêm. Groq và Gemini cần tài khoản Free nếu muốn không phát sinh phí. OpenRouter bị giới hạn ở model :free. Không tự kích hoạt thanh toán.</p>
+        <div class="bah-provider"><div class="bah-provider-heading"><strong>⚡ Groq Cloud</strong><button type="button" id="bahgroqTest">Kiểm tra</button></div><div class="bah-key-input"><input type="password" id="bahgroqInput" placeholder="Nhập Groq API key" autocomplete="off"><button id="bahgroqAdd" type="button">＋ Lưu</button></div><div id="bahgroqKeys" class="bah-key-list"></div></div>
+        <div class="bah-provider"><div class="bah-provider-heading"><strong>✦ OpenRouter Free</strong><button type="button" id="bahopenrouterTest">Kiểm tra</button></div><div class="bah-key-input"><input type="password" id="bahopenrouterInput" placeholder="Nhập OpenRouter API key" autocomplete="off"><button id="bahopenrouterAdd" type="button">＋ Lưu</button></div><div id="bahopenrouterKeys" class="bah-key-list"></div></div>
+        <div id="bahStatus" class="bah-status" role="status">API key ngoài được lưu cục bộ trên thiết bị, không đồng bộ qua Chrome Sync.</div>
+    <details id="globalGeminiApiCenter" class="gemini-api-center">
+      <summary class="gemini-api-center-summary" title="Mở Trung tâm Gemini API dùng chung">
+        <span class="gemini-api-center-icon" aria-hidden="true">🔑</span>
+        <span class="gemini-api-center-copy">
+          <strong>Kho Gemini API</strong>
+          <small>Các API Gemini hiện có vẫn được giữ nguyên</small>
+        </span>
+        <span id="globalGeminiApiCount" class="gemini-api-center-count">0 API</span>
+        <span class="gemini-api-center-caret" aria-hidden="true">⌄</span>
+      </summary>
+      <div class="gemini-api-center-body">
+        <div class="gemini-api-center-head">
+          <div>
+            <strong>Kho API dùng chung</strong>
+            <span id="globalGeminiApiSummary">Chưa kiểm tra</span>
+          </div>
+          <button id="globalGeminiTestAllBtn" class="gemini-api-test-btn" type="button">✓ KIỂM TRA TẤT CẢ</button>
+        </div>
+        <div class="gemini-api-add-row">
+          <span class="gemini-api-input-wrap">
+            <input id="globalGeminiNewKey" type="password" autocomplete="off" spellcheck="false" placeholder="Dán Gemini API key mới...">
+            <button id="globalGeminiNewKeyToggle" type="button" title="Hiện/ẩn API key">👁</button>
+          </span>
+          <button id="globalGeminiAddKeyBtn" class="gemini-api-add-btn" type="button">＋ LƯU API</button>
+        </div>
+        <div id="globalGeminiApiList" class="gemini-api-list" aria-live="polite"></div>
+        <div class="gemini-api-usage-row">
+          <span>🌍 Dịch ngôn ngữ: <b id="globalGeminiTranslatorUsage">Tự động dùng kho chung</b></span>
+          <span>✅ Duyệt bài: <b id="globalGeminiApproveUsage">Tự động dùng kho chung</b></span>
+        </div>
+        <small class="gemini-api-sync-note">☁️ Chỉ thêm một lần. Danh sách API được lưu bằng Chrome Sync và có bản sao cục bộ. Trên Chrome khác, đăng nhập cùng tài khoản và bật Sync để tự hiện lại.</small>
+      </div>
+    </details>
+      </div>
+    </details>
+
+    <details id="babylonToolChooser" class="babylon-tool-chooser" open>
+      <summary class="babylon-tool-chooser-summary" title="Bấm để mở hoặc thu gọn danh sách công cụ">
+        <span class="babylon-tool-chooser-icon" id="babylonSelectedToolIcon" aria-hidden="true">🔎</span>
+        <span class="babylon-tool-chooser-copy">
+          <strong id="babylonSelectedToolName">Chọn chức năng</strong>
+          <small id="babylonToolChooserHint">Chọn một công cụ bên dưới để bắt đầu</small>
+        </span>
+        <span class="babylon-tool-chooser-action" id="babylonToolChooserAction">Thu gọn</span>
+        <span class="babylon-tool-chooser-caret" aria-hidden="true">⌄</span>
+      </summary>
+    <nav class="tool-tabs" aria-label="Chức năng BaByLon">
+      <button id="tabKeywords" class="tool-tab active" data-page="keywordsPage" data-platforms="youtube" title="Chỉ dùng cho YouTube">
+        <span class="tool-icon">🔎</span>
+        <span class="tool-label">Keywords</span>
+        <span class="tool-platforms"><b class="pbadge yt" title="YouTube">YT</b></span>
+      </button>
+
+      <button id="tabYtAnalytics" class="tool-tab" data-page="ytAnalyticsPage" data-platforms="youtube" title="Phân tích kênh YouTube đang đăng nhập">
+        <span class="tool-icon">📊</span>
+        <span class="tool-label">Phân tích YT</span>
+        <span class="tool-platforms"><b class="pbadge yt" title="YouTube">YT</b></span>
+      </button>
+
+
+      <button id="tabYoutubeVideo" class="tool-tab" data-page="youtubeVideoPage" data-platforms="all" title="Phân tích video đa website: SRT/VTT, Groq Whisper và Smart AI">
+        <span class="tool-icon">🎬</span>
+        <span class="tool-label">Phân tích video</span>
+        <span class="tool-platforms"><b class="pbadge all" title="Đa website">WEB</b></span>
+      </button>
+
+      <button id="tabAiStudio" class="tool-tab" data-page="aiStudioPage" data-platforms="all" title="AI đa năng: viết nội dung, prompt, tạo giọng đọc, chép lời"><span class="tool-icon">✦</span><span class="tool-label">AI Sáng tạo</span><span class="tool-platforms"><b class="pbadge all">AI</b></span></button>
+
+      <button id="tabScroll" class="tool-tab" data-page="scrollPage" data-platforms="all" title="Dùng được trên hầu hết website">
+        <span class="tool-icon">⇅</span>
+        <span class="tool-label scroll-two-line-label">
+          <span>Cuộn xuống</span>
+          <span>Cuộn lên</span>
+        </span>
+        <span class="tool-platforms"><b class="pbadge all" title="Tất cả website">ALL</b></span>
+      </button>
+
+      <button id="tabDate" class="tool-tab" data-page="datePage" data-platforms="youtube,facebook,tiktok" title="YouTube • Facebook • TikTok">
+        <span class="tool-icon">🕒</span>
+        <span class="tool-label">Giờ đăng</span>
+        <span class="tool-platforms">
+          <b class="pbadge yt" title="YouTube">YT</b>
+          <b class="pbadge fb" title="Facebook">FB</b>
+          <b class="pbadge tt" title="TikTok">TT</b>
+        </span>
+      </button>
+
+      <button id="tabWorldTime" class="tool-tab" data-page="worldTimePage" data-platforms="all"
+              title="Xem giờ hiện tại theo quốc gia, thành phố và múi giờ">
+        <span class="tool-icon">🌐</span>
+        <span class="tool-label">Check giờ</span>
+        <span class="tool-platforms">
+          <b class="pbadge all" title="Dùng được ở mọi trang">ALL</b>
+        </span>
+      </button>
+
+      <button id="tabDownload" class="tool-tab" data-page="downloadPage" data-platforms="all,youtube,facebook,tiktok,douyin,bilibili" title="YouTube • Facebook • TikTok • Douyin • Bilibili">
+        <span class="tool-icon">📥</span>
+        <span class="tool-label">Tải video</span>
+        <span class="tool-platforms">
+          <b class="pbadge yt" title="YouTube">YT</b>
+          <b class="pbadge fb" title="Facebook">FB</b>
+          <b class="pbadge tt" title="TikTok">TT</b>
+          <b class="pbadge dy" title="Douyin">DY</b>
+          <b class="pbadge bi" title="Bilibili">BI</b>
+        </span>
+      </button>
+
+      <button id="tabSeriesDownload" class="tool-tab" data-page="seriesDownloadPage" data-platforms="tiktok" title="TikTok Series • tự chuyển từng tập và tải">
+        <span class="tool-icon">🎞️</span>
+        <span class="tool-label">Tải Series</span>
+        <span class="tool-platforms"><b class="pbadge tt" title="TikTok">TT</b></span>
+      </button>
+
+      <button id="tabNewGroups" class="tool-tab fb-tool" data-page="newGroupsPage" data-platforms="facebook" title="Chỉ dùng cho Facebook">
+        <span class="tool-icon">👥</span>
+        <span class="tool-label">Tích mời</span>
+        <span class="tool-platforms"><b class="pbadge fb" title="Facebook">FB</b></span>
+      </button>
+
+      <button id="tabInviteLikers" class="tool-tab fb-tool" data-page="inviteLikersPage" data-platforms="facebook" title="Chỉ dùng cho Facebook">
+        <span class="tool-icon">👍</span>
+        <span class="tool-label">Mời người thích</span>
+        <span class="tool-platforms"><b class="pbadge fb" title="Facebook">FB</b></span>
+      </button>
+
+      <button id="tabAutoPost" class="tool-tab fb-tool" data-page="autoPostPage" data-platforms="facebook" title="Chỉ dùng cho Facebook">
+        <span class="tool-icon">📝</span>
+        <span class="tool-label">Đăng Group</span>
+        <span class="tool-platforms"><b class="pbadge fb" title="Facebook">FB</b></span>
+      </button>
+
+      <button id="tabApprove" class="tool-tab fb-tool" data-page="approvePage" data-platforms="facebook" title="Chỉ dùng cho Facebook">
+        <span class="tool-icon">✅</span>
+        <span class="tool-label">Duyệt bài</span>
+        <span class="tool-platforms"><b class="pbadge fb" title="Facebook">FB</b></span>
+      </button>
+    
+      <button id="tabIpCheck" class="tool-tab" data-page="ipCheckPage" data-platforms="all,youtube,facebook,tiktok"
+              title="Kiểm tra IP công khai, blacklist phổ biến và dấu hiệu giới hạn YouTube">
+        <span class="tool-icon">🛡️</span>
+        <span class="tool-label">Check IP Độc</span>
+        <span class="tool-platforms">
+          <b class="pbadge all" title="Dùng được ở mọi trang">ALL</b>
+          <b class="pbadge yt" title="YouTube">YT</b>
+          <b class="pbadge fb" title="Facebook">FB</b>
+          <b class="pbadge tt" title="TikTok">TT</b>
+        </span>
+      </button>
+
+      <button id="tabTwoFactor" class="tool-tab" data-page="twoFactorPage" data-platforms="all"
+              title="Đọc mã TOTP 2FA từ secret của tài khoản bạn sở hữu">
+        <span class="tool-icon">🔐</span>
+        <span class="tool-label">Đọc 2FA</span>
+        <span class="tool-platforms"><b class="pbadge all" title="Dùng được ở mọi trang">ALL</b></span>
+      </button>
+
+      <button id="tabQr" class="tool-tab" data-page="qrPage" data-platforms="all"
+              title="Tạo mã QR để mở nhanh link hoặc văn bản trên điện thoại">
+        <span class="tool-icon">▦</span>
+        <span class="tool-label">Tạo QR</span>
+        <span class="tool-platforms"><b class="pbadge all" title="Dùng được ở mọi trang">ALL</b></span>
+      </button>
+
+      <button id="tabTranslator" class="tool-tab" data-page="translatorPage" data-platforms="all"
+              title="Dịch văn bản và SRT giữa hơn 100 ngôn ngữ">
+        <span class="tool-icon">🌍</span>
+        <span class="tool-label">Dịch ngôn ngữ</span>
+        <span class="tool-platforms"><b class="pbadge all" title="Dùng được ở mọi trang">ALL</b></span>
+      </button>
+
+      <button id="tabFlowBatch" class="tool-tab" data-page="flowBatchPage" data-platforms="all"
+              title="Tự động tạo ảnh trên Google Flow và chờ bạn duyệt trước khi tải">
+        <span class="tool-icon">🪄</span>
+        <span class="tool-label">Flow Auto</span>
+        <span class="tool-platforms"><b class="pbadge flow" title="Google Flow">FLOW</b></span>
+      </button>
+</nav>
+    </details>
+
+    <section id="keywordsPage" class="tool-page active">
+      <section class="card input-card compact-card">
+        <div class="section-title-row">
+          <div>
+            <h2>🔎 Tìm Keywords YouTube</h2>
+            <p>Từ khóa kênh • thẻ video • hashtag</p>
+          </div>
+        </div>
+        <label for="channelInput">Link kênh YouTube</label>
+        <div class="input-row">
+          <input id="channelInput" type="text" placeholder="https://www.youtube.com/@tenkenh" autocomplete="off" />
+          <button id="currentBtn" class="secondary" title="Lấy trang YouTube đang mở">Trang hiện tại</button>
+        </div>
+        <button id="analyzeBtn" class="primary">LẤY TỪ KHÓA + THẺ + HASHTAG</button>
+        <div id="status" class="status"></div>
+        <div id="progressWrap" class="progress-wrap hidden">
+          <div class="progress-track"><div id="progressBar" class="progress-bar"></div></div>
+          <div id="progressText" class="progress-text"></div>
+        </div>
+      </section>
+
+      <section id="summaryCard" class="card hidden summary-card">
+        <div class="summary-grid">
+          <div><strong id="videoCount">0</strong><span>ứng viên quét nhanh</span></div>
+          <div><strong id="channelKeywordCount">0</strong><span>từ khóa kênh</span></div>
+          <div><strong id="latestTagCount">0</strong><span>thẻ mới nhất</span></div>
+          <div><strong id="tagCount">0</strong><span>thẻ 15 mới + 15 đầu</span></div>
+          <div><strong id="hashtagCount">0/0</strong><span>hashtag mới / cũ</span></div>
+        </div>
+      </section>
+
+      <section id="channelCard" class="card result-card hidden">
+        <div class="result-head">
+          <div><h2>🔑 Từ khóa cấp kênh</h2><p id="channelCountText">0 từ khóa</p></div>
+          <button id="copyChannelBtn" class="copy-btn">Copy tất cả</button>
+        </div>
+        <div id="channelChips" class="chips"></div>
+        <div id="channelEmpty" class="empty hidden"></div>
+        <details id="rawDetails" class="raw-details hidden">
+          <summary>Xem chuỗi từ khóa gốc</summary>
+          <textarea id="rawKeywords" readonly></textarea>
+        </details>
+      </section>
+
+      <section id="latestTagsCard" class="card result-card hidden latest-card">
+        <div class="result-head">
+          <div><h2>🆕 Thẻ video mới nhất</h2><p id="latestVideoMeta">Chưa có dữ liệu</p></div>
+          <button id="copyLatestTagsBtn" class="copy-btn">Copy thẻ</button>
+        </div>
+        <a id="latestVideoLink" class="latest-video-title hidden" href="#" target="_blank" rel="noreferrer"></a>
+        <div class="section-note">Thẻ lấy từ metadata công khai của video mới nhất tìm thấy.</div>
+        <div id="latestTagsChips" class="chips"></div>
+        <div id="latestTagsEmpty" class="empty hidden"></div>
+      </section>
+
+      <section id="tagsCard" class="card result-card hidden">
+        <div class="result-head">
+          <div><h2>🏷️ Thẻ (từ khóa) video</h2><p id="tagsCountText">0 thẻ</p></div>
+          <button id="copyTagsBtn" class="copy-btn">Copy tất cả</button>
+        </div>
+        <div class="section-note">Gộp thẻ từ 12 nội dung mới nhất + 12 video cũ nhất của kênh. Số bên phải là số nội dung sử dụng.</div>
+        <div id="tagsChips" class="chips ranked"></div>
+        <div id="tagsEmpty" class="empty hidden"></div>
+      </section>
+      <section id="hashtagsCard" class="card result-card hidden">
+        <div class="result-head">
+          <div>
+            <h2>#️⃣ Hashtag — 12 video cũ nhất của kênh</h2>
+            <p id="hashtagsCountText">0 hashtag</p>
+          </div>
+          <button id="copyHashtagsBtn" class="copy-btn">Copy tất cả</button>
+        </div>
+        <div class="section-note">
+          Chỉ thống kê hashtag trong tiêu đề + mô tả của tối đa 12 Video/Shorts/Live mới đăng gần nhất.
+        </div>
+        <div id="hashtagsChips" class="chips ranked"></div>
+        <div id="hashtagsEmpty" class="empty hidden"></div>
+      </section>
+
+      <section id="oldestHashtagsCard" class="card result-card hidden oldest-hashtag-card">
+        <div class="result-head">
+          <div>
+            <h2>🕰️ Hashtag — 12 nội dung mới nhất</h2>
+            <p id="oldestHashtagsCountText">0 hashtag</p>
+          </div>
+          <button id="copyOldestHashtagsBtn" class="copy-btn">Copy tất cả</button>
+        </div>
+        <div class="section-note">
+          Đây là đúng 12 video cũ nhất còn công khai của kênh: BaByLon mở Video / Shorts / Live, chọn bộ lọc Cũ nhất của YouTube, đọc ngày đăng thật rồi chọn 12 video có ngày đăng sớm nhất. Không lấy 12 video cũ ngẫu nhiên.
+        </div>
+        <div id="oldestHashtagsChips" class="chips ranked"></div>
+        <div id="oldestHashtagsEmpty" class="empty hidden"></div>
+      </section>
+    </section>
+
+
+    <section id="worldTimePage" class="tool-page">
+      <section class="card worldtime-card">
+        <div class="worldtime-hero">
+          <div class="worldtime-icon">🌐</div>
+          <div>
+            <h2>Kiểm tra giờ thế giới</h2>
+            <p>Xem giờ hiện tại theo quốc gia, khu vực và thành phố — hiển thị đủ giờ, phút, giây.</p>
+          </div>
+        </div>
+
+        <div class="worldtime-controls">
+          <label for="worldCountrySelect">Quốc gia / khu vực</label>
+          <div class="worldtime-country-select-wrap">
+            <img id="worldCountryFlag" class="worldtime-select-flag" src="icons/flags/vn.png" alt="Cờ Việt Nam">
+            <select id="worldCountrySelect"></select>
+          </div>
+
+          <label for="worldCitySelect">Thành phố / khu vực</label>
+          <select id="worldCitySelect"></select>
+
+          <div class="worldtime-control-actions">
+            <button id="worldLocalBtn" type="button" class="worldtime-secondary">📍 Giờ máy hiện tại</button>
+            <button id="worldCopyBtn" type="button" class="worldtime-secondary">📋 Copy giờ</button>
+          </div>
+        </div>
+
+        <div class="worldtime-display">
+          <div class="worldtime-location-line">
+            Thời gian ở
+            <span class="worldtime-location-with-flag">
+              <img id="worldTitleFlag" class="worldtime-title-flag" src="icons/flags/vn.png" alt="Cờ Việt Nam">
+              <strong id="worldLocationTitle">—</strong>
+            </span>
+            hiện tại
+          </div>
+
+          <div id="worldClock" class="worldtime-clock">00:00:00</div>
+
+          <div id="worldDate" class="worldtime-date">—</div>
+
+          <div class="worldtime-lunar" aria-live="polite">
+            <div class="worldtime-lunar-head">
+              <div>
+                <span class="worldtime-lunar-kicker">🌙 LỊCH ÂM VIỆT NAM</span>
+                <strong id="worldLunarFull">—</strong>
+              </div>
+              <span id="worldLunarLeap" class="worldtime-lunar-leap hidden">Tháng nhuận</span>
+            </div>
+            <div class="worldtime-lunar-grid">
+              <div class="worldtime-lunar-main">
+                <span id="worldLunarDay">--</span>
+                <small>ngày</small>
+              </div>
+              <div class="worldtime-lunar-main">
+                <span id="worldLunarMonth">--</span>
+                <small>tháng</small>
+              </div>
+              <div class="worldtime-lunar-detail">
+                <span>Ngày</span>
+                <strong id="worldLunarDayCanChi">—</strong>
+              </div>
+              <div class="worldtime-lunar-detail">
+                <span>Tháng</span>
+                <strong id="worldLunarMonthCanChi">—</strong>
+              </div>
+              <div class="worldtime-lunar-detail worldtime-lunar-year">
+                <span>Năm</span>
+                <strong id="worldLunarYearCanChi">—</strong>
+              </div>
+            </div>
+            <div class="worldtime-lunar-note">Âm lịch Việt Nam được tính cục bộ theo chuẩn UTC+7, không cần API ngoài.</div>
+          </div>
+
+          <div class="worldtime-meta-grid">
+            <div class="worldtime-meta">
+              <span>Quốc gia</span>
+              <div class="worldtime-country-value">
+                <img id="worldCountryMetaFlag" class="worldtime-meta-flag" src="icons/flags/vn.png" alt="Cờ Việt Nam">
+                <strong id="worldCountryName">—</strong>
+              </div>
+            </div>
+            <div class="worldtime-meta">
+              <span>Khu vực</span>
+              <strong id="worldAreaName">—</strong>
+            </div>
+            <div class="worldtime-meta">
+              <span>Múi giờ IANA</span>
+              <strong id="worldZoneName">—</strong>
+            </div>
+            <div class="worldtime-meta">
+              <span>UTC</span>
+              <strong id="worldUtcOffset">—</strong>
+            </div>
+          </div>
+        </div>
+
+        <div class="worldtime-quick-title">Truy cập nhanh</div>
+        <div id="worldQuickZones" class="worldtime-quick-zones">
+          <button type="button" data-world-zone="Asia/Ho_Chi_Minh"><img src="icons/flags/vn.png" alt="">Việt Nam</button>
+          <button type="button" data-world-zone="America/New_York"><img src="icons/flags/us.png" alt="">New York • ET</button>
+          <button type="button" data-world-zone="America/Chicago"><img src="icons/flags/us.png" alt="">Chicago • CT</button>
+          <button type="button" data-world-zone="America/Denver"><img src="icons/flags/us.png" alt="">Denver • MT</button>
+          <button type="button" data-world-zone="America/Los_Angeles"><img src="icons/flags/us.png" alt="">Los Angeles • PT</button>
+          <button type="button" data-world-zone="America/Phoenix"><img src="icons/flags/us.png" alt="">Phoenix • Arizona</button>
+          <button type="button" data-world-zone="America/Anchorage"><img src="icons/flags/us.png" alt="">Anchorage • Alaska</button>
+          <button type="button" data-world-zone="Pacific/Honolulu"><img src="icons/flags/us.png" alt="">Honolulu • Hawaii</button>
+          <button type="button" data-world-zone="Europe/London"><img src="icons/flags/gb.png" alt="">London</button>
+          <button type="button" data-world-zone="Europe/Paris"><img src="icons/flags/fr.png" alt="">Paris</button>
+          <button type="button" data-world-zone="Asia/Shanghai"><img src="icons/flags/cn.png" alt="">Bắc Kinh</button>
+          <button type="button" data-world-zone="Asia/Tokyo"><img src="icons/flags/jp.png" alt="">Tokyo</button>
+          <button type="button" data-world-zone="Asia/Seoul"><img src="icons/flags/kr.png" alt="">Seoul</button>
+          <button type="button" data-world-zone="Asia/Bangkok"><img src="icons/flags/th.png" alt="">Bangkok</button>
+          <button type="button" data-world-zone="Australia/Sydney"><img src="icons/flags/au.png" alt="">Sydney</button>
+        </div>
+
+        <div class="worldtime-note">
+          Đồng hồ cập nhật trực tiếp mỗi giây bằng múi giờ IANA của trình duyệt; không cần API ngoài.
+        </div>
+
+        <div class="worldtime-daycalc" aria-live="polite">
+            <div class="worldtime-daycalc-head">
+              <div>
+                <span class="worldtime-daycalc-kicker">📅 ĐẾM NGÀY TRƯỚC / SAU</span>
+                <strong>Tính ngày cụ thể từ ngày hiện tại</strong>
+              </div>
+              <span id="worldDayCalcBase" class="worldtime-daycalc-base">Hôm nay: --/--/----</span>
+            </div>
+
+            <div class="worldtime-daycalc-controls">
+              <label for="worldDayCount">Số ngày</label>
+              <input id="worldDayCount" type="number" inputmode="numeric" min="0" max="36500" step="1" value="10" autocomplete="off" aria-label="Số ngày cần tính">
+              <button id="worldDayBeforeBtn" type="button" class="worldtime-daycalc-btn">← Ngày trước</button>
+              <button id="worldDayAfterBtn" type="button" class="worldtime-daycalc-btn">Ngày sau →</button>
+            </div>
+
+            <div id="worldDayCalcResult" class="worldtime-daycalc-result">
+              <span>Kết quả</span>
+              <strong>Nhập số ngày rồi chọn “Ngày trước” hoặc “Ngày sau”.</strong>
+              <small>Ví dụ: nhập 10 → chọn Ngày trước để xem ngày cách hôm nay 10 ngày.</small>
+            </div>
+          </div>
+
+
+          <div class="worldtime-diffcalc" aria-live="polite">
+            <div class="worldtime-diffcalc-head">
+              <div>
+                <span class="worldtime-diffcalc-kicker">🧮 TÍNH KHOẢNG CÁCH NGÀY / GIỜ</span>
+                <strong>Tính chênh lệch chính xác giữa 2 ngày hoặc 2 mốc giờ</strong>
+              </div>
+            </div>
+
+            <div class="worldtime-diffcalc-grid">
+              <section class="worldtime-diffcalc-box" aria-labelledby="worldDateDiffTitle">
+                <div class="worldtime-diffcalc-box-title" id="worldDateDiffTitle">📅 Tính số ngày</div>
+                <div class="worldtime-diffcalc-fields worldtime-diffcalc-date-fields">
+                  <label>
+                    <span>Từ ngày</span>
+                    <input id="worldDiffDateStart" type="date" autocomplete="off" aria-label="Chọn ngày bắt đầu" title="Bấm để chọn ngày bắt đầu">
+                  </label>
+                  <span class="worldtime-diffcalc-separator">→</span>
+                  <label>
+                    <span>Đến ngày</span>
+                    <input id="worldDiffDateEnd" type="date" autocomplete="off" aria-label="Chọn ngày kết thúc" title="Bấm để chọn ngày kết thúc">
+                  </label>
+                </div>
+                <button id="worldDateDiffBtn" type="button" class="worldtime-diffcalc-btn">TÍNH SỐ NGÀY</button>
+                <div id="worldDateDiffResult" class="worldtime-diffcalc-result">
+                  <strong>Ví dụ: 04/09/2026 → 05/09/2026 = 1 ngày</strong>
+                  <small>Bấm vào ô ngày hoặc biểu tượng lịch để chọn nhanh, không cần gõ tay.</small>
+                </div>
+              </section>
+
+              <section class="worldtime-diffcalc-box" aria-labelledby="worldTimeDiffTitle">
+                <div class="worldtime-diffcalc-box-title" id="worldTimeDiffTitle">⏱️ Tính số giờ</div>
+                <div class="worldtime-diffcalc-fields worldtime-diffcalc-time-fields">
+                  <label>
+                    <span>Từ giờ</span>
+                    <div class="worldtime-time24-picker" data-time-target="worldDiffTimeStart">
+                      <select class="worldtime-time24-hour" aria-label="Giờ bắt đầu, từ 00 đến 23"></select>
+                      <b aria-hidden="true">:</b>
+                      <select class="worldtime-time24-minute" aria-label="Phút bắt đầu, từ 00 đến 59"></select>
+                      <input id="worldDiffTimeStart" type="hidden" value="">
+                    </div>
+                  </label>
+                  <span class="worldtime-diffcalc-separator">→</span>
+                  <label>
+                    <span>Đến giờ</span>
+                    <div class="worldtime-time24-picker" data-time-target="worldDiffTimeEnd">
+                      <select class="worldtime-time24-hour" aria-label="Giờ kết thúc, từ 00 đến 23"></select>
+                      <b aria-hidden="true">:</b>
+                      <select class="worldtime-time24-minute" aria-label="Phút kết thúc, từ 00 đến 59"></select>
+                      <input id="worldDiffTimeEnd" type="hidden" value="">
+                    </div>
+                  </label>
+                </div>
+                <button id="worldTimeDiffBtn" type="button" class="worldtime-diffcalc-btn">TÍNH SỐ GIỜ</button>
+                <div id="worldTimeDiffResult" class="worldtime-diffcalc-result">
+                  <strong>Ví dụ: 08:00 → 09:00 = 1 giờ</strong>
+                  <small>Chọn giờ 24h từ 00:00 đến 23:59. Nếu giờ kết thúc nhỏ hơn giờ bắt đầu, BaByLon tự tính qua ngày hôm sau.</small>
+                </div>
+              </section>
+            </div>
+          </div>
+
+          <div class="worldtime-calc-section-head">
+            <div>
+              <span class="worldtime-diffcalc-kicker">🌍 MÁY TÍNH KHUNG GIỜ</span>
+              <strong>Quy đổi nhanh giữa các quốc gia và nhiều múi giờ của Mỹ</strong>
+            </div>
+          </div>
+          <div class="date-calc-panel worldtime-date-calc-panel">
+            <div class="date-convert-head date-calc-head">
+              <div>
+                <span>Máy tính khung giờ</span>
+                <strong>Tự chọn múi giờ gốc + ngày giờ để quy đổi sang các quốc gia / khu vực</strong>
+              </div>
+              <small class="date-calc-country-note"><span class="date-head-flags" aria-hidden="true"><img src="icons/flags/vn.svg" alt="" loading="lazy"><img src="icons/flags/us.svg" alt="" loading="lazy"><img src="icons/flags/kr.svg" alt="" loading="lazy"><img src="icons/flags/jp.svg" alt="" loading="lazy"><img src="icons/flags/de.svg" alt="" loading="lazy"><img src="icons/flags/fr.svg" alt="" loading="lazy"><img src="icons/flags/es.svg" alt="" loading="lazy"><img src="icons/flags/pt.svg" alt="" loading="lazy"><img src="icons/flags/nl.svg" alt="" loading="lazy"><img src="icons/flags/it.svg" alt="" loading="lazy"></span><span>10 nước mặc định • Mỹ có 7 khu vực giờ • tự xử lý DST</span></small>
+            </div>
+            <div class="date-calc-controls">
+              <label>
+                <span>Nước gốc</span>
+                <div class="date-source-select-wrap"><span id="dateCalcSourceFlag" class="date-source-flag"></span><select id="dateCalcSourceZone"></select></div>
+              </label>
+              <label>
+                <span>Ngày</span>
+                <input id="dateCalcDate" type="date">
+              </label>
+              <label>
+                <span>Giờ • 24 giờ</span>
+                <div class="date-calc-time24" aria-label="Chọn giờ 24 giờ từ 00:00 đến 23:59">
+                  <select id="dateCalcHour" title="Giờ 00 đến 23"></select>
+                  <b>:</b>
+                  <select id="dateCalcMinute" title="Phút 00 đến 59"></select>
+                  <input id="dateCalcTime" type="hidden" value="00:00">
+                </div>
+              </label>
+            </div>
+            <div class="date-calc-country-manager">
+              <div class="date-calc-country-add">
+                <select id="dateCalcCountrySelect" aria-label="Chọn quốc gia muốn thêm"></select>
+                <button id="dateCalcAddCountryBtn" type="button">＋ Thêm nước</button>
+                <button id="dateCalcResetCountriesBtn" type="button" class="secondary">↺ Mặc định</button>
+              </div>
+              <div id="dateCalcCountryChips" class="date-calc-country-chips" aria-label="Các quốc gia đang hiển thị"></div>
+            </div>
+            <div id="dateCalcHint" class="date-calc-hint">Mặc định 10 nước; riêng Mỹ hiển thị 7 khu vực giờ (ET, CT, MT, PT, Arizona, Alaska, Hawaii). Bạn có thể thêm / xóa tùy ý.</div>
+            <div id="dateCalcGrid" class="date-timezone-grid date-calc-grid"></div>
+          </div>
+      </section>
+    </section>
+
+    <section id="datePage" class="tool-page">
+      <section class="card date-card">
+        <div class="date-hero">
+          <div class="date-illustration">🕒</div>
+          <div>
+            <h2>Check Giờ đăng</h2>
+            <p>Tự nhận video hoặc bài viết đang mở, rồi kiểm tra ngày giờ đăng.</p>
+          </div>
+        </div>
+
+        <label for="dateUrlInput">Link video / bài viết</label>
+        <div class="date-url-row">
+          <textarea id="dateUrlInput" rows="2" placeholder="Mở video/bài viết hiện tại hoặc dán link YouTube / Facebook / TikTok"></textarea>
+          <button id="dateCurrentBtn" class="secondary date-current-btn" type="button">Trang hiện tại</button>
+        </div>
+
+        <div id="dateDetected" class="date-detected">Chưa nhận diện nền tảng.</div>
+
+        <div class="platforms" aria-label="Nền tảng cần kiểm tra">
+          <label><input type="checkbox" id="dateYoutubeCheck" checked> YouTube</label>
+          <label><input type="checkbox" id="dateFacebookCheck" checked> Facebook</label>
+          <label><input type="checkbox" id="dateTiktokCheck" checked> TikTok</label>
+        </div>
+
+        <details class="date-settings">
+          <summary>Tùy chọn nâng cao</summary>
+          <label class="date-api-field">
+            <span>YouTube API key</span>
+            <input id="dateYoutubeApiKey" type="password" placeholder="Không bắt buộc • giúp lấy thời gian chính xác hơn">
+          </label>
+        </details>
+
+        <button id="dateCheckBtn" class="date-check-btn" type="button">KIỂM TRA GIỜ ĐĂNG</button>
+        <div id="dateStatus" class="date-status" role="status"></div>
+
+        <section id="dateResult" class="date-result hidden" aria-live="polite">
+          <div>
+            <span>Nền tảng</span>
+            <strong id="datePlatform"></strong>
+          </div>
+          <div class="date-highlight">
+            <span><img class="date-label-flag" src="icons/flags/vn.svg" alt="">Ngày giờ đăng • Việt Nam</span>
+            <strong id="datePublishedAt"></strong>
+          </div>
+          <div>
+            <span>Nguồn dữ liệu</span>
+            <strong id="dateSource"></strong>
+          </div>
+          <div>
+            <span>Dữ liệu gốc</span>
+            <strong id="dateRawValue"></strong>
+          </div>
+
+          <div class="date-result-wide date-author-card">
+            <span>Tác giả • quốc gia</span>
+            <strong id="dateAuthorCountry">Đang kiểm tra...</strong>
+            <small id="dateAuthorCountryMeta"></small>
+          </div>
+          <div class="date-result-wide date-author-card date-author-time-card">
+            <span>Giờ đăng tại quốc gia tác giả</span>
+            <strong id="dateAuthorLocalTime">Chưa xác định</strong>
+            <small id="dateAuthorTimeZone"></small>
+          </div>
+
+          <div class="date-result-wide date-convert-panel">
+            <div class="date-convert-head">
+              <div>
+                <span>Quy đổi giờ đăng</span>
+                <strong class="date-default-country-line"><span class="date-head-flags" aria-hidden="true"><img src="icons/flags/vn.svg" alt="" loading="lazy"><img src="icons/flags/us.svg" alt="" loading="lazy"><img src="icons/flags/kr.svg" alt="" loading="lazy"><img src="icons/flags/jp.svg" alt="" loading="lazy"><img src="icons/flags/de.svg" alt="" loading="lazy"><img src="icons/flags/fr.svg" alt="" loading="lazy"><img src="icons/flags/es.svg" alt="" loading="lazy"><img src="icons/flags/pt.svg" alt="" loading="lazy"><img src="icons/flags/nl.svg" alt="" loading="lazy"><img src="icons/flags/it.svg" alt="" loading="lazy"></span><span>10 nước mặc định • Mỹ có 7 khu vực giờ • có thể tùy chỉnh</span></strong>
+              </div>
+              <small>Tự xử lý DST theo múi giờ IANA</small>
+            </div>
+            <div id="dateTimezoneGrid" class="date-timezone-grid"></div>
+          </div>
+
+
+        </section>
+
+        <div class="date-note">
+          BaByLon có thể kiểm tra giờ đăng của video hoặc bài viết. Facebook hỗ trợ bài thường, ảnh, reel và video; YouTube hỗ trợ video/Shorts/live và bài Community có link; TikTok hỗ trợ video/photo post. Nếu nền tảng chỉ hiển thị kiểu “8 phút trước”, thời gian sẽ được quy đổi gần đúng.
+        </div>
+      </section>
+    </section>
+
+
+
+    <section id="downloadPage" class="tool-page">
+      <section class="card download-card">
+        <div class="download-hero">
+          <div class="download-illustration">📥</div>
+          <div>
+            <h2>Chọn tệp để tải</h2>
+            <p>Tự phát hiện media của tab đang xem, dán link khác hoặc quét sâu khi cần. Giao diện được thiết kế theo luồng làm việc kiểu trình tải media, nhưng mã nguồn là của BaByLon.</p>
+          </div>
+        </div>
+
+        <label for="downloadUrlInput">Link video</label>
+        <div class="download-url-row">
+          <textarea id="downloadUrlInput" rows="2" placeholder="Dán link video hoặc mở video hiện tại"></textarea>
+          <button id="downloadCurrentBtn" class="secondary download-current-btn" type="button">Trang hiện tại</button>
+        </div>
+        <div id="downloadDetected" class="download-detected">Chưa nhận diện nền tảng.</div>
+
+        <label for="downloadNameInput">Tên file tải về</label>
+        <div class="download-name-row">
+          <input id="downloadNameInput" type="text" placeholder="Tên video" autocomplete="off">
+          <span class="download-root-badge">Downloads</span>
+        </div>
+
+        <div class="helper-strip direct-mode-strip">
+          <div>
+            <strong>⚡ BaByLon Browser Downloader</strong>
+            <span id="downloadHelperStatus">100% chạy trong Chrome • không cần yt-dlp, FFmpeg hay chương trình ngoài</span>
+          </div>
+          <span class="direct-ready-badge">BROWSER</span>
+        </div>
+
+        <div class="download-vdh-toolbar" aria-label="Công cụ tải media">
+          <button id="downloadLiveBtn" class="download-tool-btn live active" type="button" title="Tự cập nhật media tab hiện tại">● TỰ PHÁT HIỆN</button>
+          <button id="downloadDeepBtn" class="download-tool-btn" type="button" title="Chỉ dùng khi YouTube chưa hiện đủ chất lượng">🔎 QUÉT SÂU YT</button>
+          <button id="downloadFolderBtn" class="download-tool-btn" type="button">📁 THƯ MỤC</button>
+          <button id="downloadHistoryBtn" class="download-tool-btn" type="button">🕘 LỊCH SỬ</button>
+          <button id="downloadClearBtn" class="download-tool-btn" type="button">🧹 XÓA XONG</button>
+        </div>
+        <div id="downloadLiveStatus" class="download-live-status">
+          <span class="download-live-dot"></span>
+          <span>BaByLon đang nghe các request media của tab hiện tại.</span>
+        </div>
+        <div id="downloadEngineHint" class="download-engine-hint ok">
+          Browser Engine quét Player/DOM + request media của tab + luồng trực tiếp YouTube. “Quét sâu YT” chỉ dùng khi YouTube chưa hiện đủ chất lượng.
+        </div>
+
+        <button id="downloadFindBtn" class="download-find-btn" type="button">⚡ BROWSER SCAN / LÀM MỚI</button>
+        <div id="downloadStatus" class="download-status"></div>
+
+        <section id="downloadHistoryPanel" class="download-history-panel hidden">
+          <div class="download-history-head">
+            <strong>Lịch sử tải gần đây</strong>
+            <button id="downloadHistoryCloseBtn" type="button">×</button>
+          </div>
+          <div id="downloadHistoryList" class="download-history-list"></div>
+        </section>
+
+        <section id="downloadInfo" class="download-info hidden">
+          <div class="download-title-row">
+            <div>
+              <span id="downloadPlatformBadge" class="platform-badge">VIDEO</span>
+              <strong id="downloadVideoTitle"></strong>
+            </div>
+            <span id="downloadCandidateCount" class="candidate-count">0 lựa chọn</span>
+          </div>
+
+          <div id="downloadVideoSection" class="media-section hidden">
+            <div class="media-section-head">
+              <span>🎬 VIDEO</span>
+              <small>Ưu tiên video có sẵn hình + tiếng • tải trực tiếp</small>
+            </div>
+            <div id="downloadVideoCandidates" class="download-candidates"></div>
+          </div>
+
+          <div id="downloadAudioSection" class="media-section hidden">
+            <div class="media-section-head">
+              <span>🎵 AUDIO</span>
+              <small>Audio gốc (M4A / WebM / MP3 nếu nguồn có)</small>
+            </div>
+            <div id="downloadAudioCandidates" class="download-candidates"></div>
+          </div>
+
+          <div id="downloadSubtitleSection" class="media-section hidden">
+            <div class="media-section-head">
+              <span>☰ PHỤ ĐỀ</span>
+              <small>Tải phụ đề công khai thành .srt</small>
+            </div>
+            <div id="downloadSubtitleCandidates" class="download-candidates"></div>
+          </div>
+        </section>
+
+        <div class="download-note">
+          Browser Downloader chạy hoàn toàn trong Chrome, không cần cài thêm engine. BaByLon đọc media công khai từ player/DOM và request của tab; với YouTube còn đọc dữ liệu player và có thể ghép MP4 + M4A tương thích ngay trong trình duyệt. Không đổi đuôi giả, không hỗ trợ DRM hoặc nội dung bị khóa.
+        </div>
+      </section>
+    </section>
+
+    <section id="seriesDownloadPage" class="tool-page">
+      <section class="card series-card">
+        <div class="series-hero">
+          <div class="series-hero-icon">🎞️</div>
+          <div>
+            <h2>Tải Series tự động</h2>
+            <p>Mở phim TikTok có danh sách tập. BaByLon sẽ tự chuyển từng tập, ưu tiên nút tải Cốc Cốc và tự chuyển sang Browser Downloader nếu Cốc Cốc không cho extension điều khiển.</p>
+          </div>
+        </div>
+
+        <div class="series-detect-box">
+          <div><span>Series hiện tại</span><strong id="seriesDetectedTitle">Chưa quét</strong></div>
+          <small id="seriesDetectedEpisodes">Mở trang phim TikTok rồi bấm QUÉT DANH SÁCH TẬP.</small>
+        </div>
+
+        <div class="series-form-grid">
+          <label>Từ tập<input id="seriesStartEpisode" type="number" min="1" value="1"></label>
+          <label>Đến tập<input id="seriesEndEpisode" type="number" min="0" value="0" placeholder="0 = tự nhận"></label>
+          <label>Chờ sau khi đổi tập
+            <select id="seriesWaitSeconds">
+              <option value="2">2 giây</option>
+              <option value="4" selected>4 giây</option>
+              <option value="6">6 giây</option>
+              <option value="8">8 giây</option>
+              <option value="12">12 giây</option>
+            </select>
+          </label>
+          <label>Thử lại khi lỗi
+            <select id="seriesRetryCount">
+              <option value="0">Không thử lại</option>
+              <option value="1" selected>1 lần</option>
+              <option value="2">2 lần</option>
+              <option value="3">3 lần</option>
+            </select>
+          </label>
+        </div>
+
+        <label class="series-mode-label">Cách tải
+          <select id="seriesDownloadMode">
+            <option value="cococ-first" selected>Ưu tiên Cốc Cốc → Browser fallback</option>
+            <option value="cococ-only">Chỉ dùng nút tải Cốc Cốc</option>
+            <option value="browser-only">Chỉ dùng BaByLon Browser Downloader</option>
+          </select>
+        </label>
+
+        <div class="series-actions">
+          <button id="seriesScanBtn" class="series-scan-btn" type="button">🔎 QUÉT DANH SÁCH TẬP</button>
+          <button id="seriesStartBtn" class="series-start-btn" type="button">▶ BẮT ĐẦU TẢI SERIES</button>
+          <button id="seriesPauseBtn" class="series-pause-btn" type="button" disabled>Ⅱ TẠM DỪNG</button>
+          <button id="seriesStopBtn" class="series-stop-btn" type="button" disabled>■ DỪNG</button>
+        </div>
+
+        <div id="seriesStatus" class="series-status">Chưa chạy.</div>
+
+        <div class="series-stats">
+          <div><span>Tổng</span><strong id="seriesTotalCount">0</strong></div>
+          <div><span>Đang ở tập</span><strong id="seriesCurrentEpisode">—</strong></div>
+          <div><span>Đã tải</span><strong id="seriesDoneCount">0</strong></div>
+          <div><span>Lỗi</span><strong id="seriesErrorCount">0</strong></div>
+        </div>
+
+        <div class="series-progress"><i id="seriesProgressFill"></i></div>
+        <div id="seriesProgressText" class="series-progress-text">0/0 • 0%</div>
+
+        <div class="series-two-cols">
+          <div>
+            <div class="series-section-title">Hàng đợi</div>
+            <div id="seriesQueue" class="series-queue"><div class="series-empty">Chưa có hàng đợi.</div></div>
+          </div>
+          <div>
+            <div class="series-section-title">Tiến trình & lỗi</div>
+            <div id="seriesLog" class="series-log"><div class="series-empty">Nhật ký sẽ hiện ở đây.</div></div>
+          </div>
+        </div>
+
+        <div class="series-note">
+          <strong>Cách hoạt động:</strong> BaByLon tự chọn nhóm 1–24 → 25–48 → 49–72… rồi bấm từng tập. Nếu lớp tải của Cốc Cốc có thể truy cập từ DOM, BaByLon sẽ chọn VIDEO chất lượng cao nhất; nếu lớp đó thuộc giao diện riêng của trình duyệt, chế độ mặc định sẽ tự chuyển sang Browser Downloader. Không hỗ trợ DRM hoặc nội dung bị khóa. Chỉ dùng cho nội dung bạn có quyền tải.
+        </div>
+      </section>
+    </section>
+
+    <section id="newGroupsPage" class="tool-page">
+      <section class="embedded-tool-card">
+        <div class="embedded-title"><span>👥</span><div><h2>Tích bạn bè vô Group</h2><p>Lọc và tick người có thể mời vào Facebook Group.</p></div></div>
+        <iframe class="tool-frame medium" src="tools/newgroups/popup.html" title="Tích bạn bè vô Group"></iframe>
+      </section>
+    </section>
+
+    <section id="inviteLikersPage" class="tool-page">
+      <section class="embedded-tool-card">
+        <div class="embedded-title"><span>👍</span><div><h2>Mời người đã thích</h2><p>Tự động bấm Mời trong danh sách người đã thích bài viết.</p></div></div>
+        <iframe class="tool-frame medium" src="tools/invite/popup.html" title="Mời người đã thích"></iframe>
+      </section>
+    </section>
+
+    <section id="autoPostPage" class="tool-page">
+      <section class="embedded-tool-card">
+        <div class="embedded-title"><span>📝</span><div><h2>Tự động đăng bài Group</h2><p>Quét nhóm Facebook và hỗ trợ đăng nội dung theo cấu hình.</p></div></div>
+        <iframe class="tool-frame tall" src="tools/autopost/popup.html" title="Tự động đăng bài Group"></iframe>
+      </section>
+    </section>
+
+    <section id="approvePage" class="tool-page">
+      <section class="embedded-tool-card">
+        <div class="embedded-title"><span>✅</span><div><h2>Tự động duyệt bài</h2><p>Kiểm duyệt từng bài trước: chỉ bài việc làm an toàn mới được duyệt; cùng một tác giả chỉ giữ tối đa 1 bài/24 giờ. Bài chia sẻ từ Group khác bị từ chối ngay, không kiểm tra thêm; bài đầu tiên cũng phải vượt kiểm tra rủi ro; bài dư, vay vốn, lừa đảo hoặc buôn bán bị từ chối.</p></div></div>
+        <iframe class="tool-frame approve-compact" src="tools/approve/popup.html" title="Tự động duyệt bài"></iframe>
+      </section>
+    </section>
+
+    
+    <section id="ipCheckPage" class="tool-page">
+      <section class="card ipcheck-card">
+        <div class="ipcheck-hero">
+          <div class="ipcheck-icon">🛡️</div>
+          <div>
+            <h2>Check IP Độc</h2>
+            <p>Kiểm tra IP, vị trí, ISP/ASN, DNS blacklist và dấu hiệu giới hạn trên YouTube, Facebook, TikTok.</p>
+          </div>
+        </div>
+
+        <div class="ipcheck-warning">
+          YouTube không cung cấp một “danh sách đen IP” công khai để tra trực tiếp.
+          BaByLon chỉ đánh giá các dấu hiệu thực tế: blacklist công khai + khả năng truy cập YouTube + lỗi 429/403/unusual traffic.
+        </div>
+
+        <div class="ipcheck-input-block">
+          <label for="ipManualInput">Nhập IP cần kiểm tra</label>
+          <div class="ipcheck-input-row">
+            <input id="ipManualInput" type="text" inputmode="decimal"
+                   placeholder="Ví dụ: 1.53.49.100" autocomplete="off" spellcheck="false">
+            <button id="ipManualBtn" class="ipcheck-secondary-btn" type="button">CHECK IP NÀY</button>
+          </div>
+          <small>
+            IP nhập tay: kiểm tra DNS blacklist/reputation. Tín hiệu YouTube 429/403 chỉ kiểm tra chính xác với IP hiện tại của máy.
+          </small>
+        </div>
+
+        <div class="ipcheck-actions">
+          <button id="ipCurrentBtn" class="ipcheck-main-btn" type="button">🌐 CHECK IP HIỆN TẠI</button>
+          <button id="ipFillCurrentBtn" class="ipcheck-light-btn" type="button">↙ LẤY IP HIỆN TẠI</button>
+        </div>
+
+        <div id="ipCheckStatus" class="ipcheck-status">Nhập IP hoặc kiểm tra IP hiện tại để bắt đầu.</div>
+
+        <section id="ipCheckSummary" class="ipcheck-summary hidden">
+          <div class="ipcheck-summary-box">
+            <span>IP công khai</span>
+            <strong id="ipPublicValue">—</strong>
+          </div>
+          <div class="ipcheck-summary-box">
+            <span>YouTube</span>
+            <strong id="ipYoutubeValue">—</strong>
+          </div>
+          <div class="ipcheck-summary-box">
+            <span>Blacklist</span>
+            <strong id="ipBlacklistValue">—</strong>
+          </div>
+          <div class="ipcheck-summary-box">
+            <span>Đánh giá</span>
+            <strong id="ipRiskValue">—</strong>
+          </div>
+        </section>
+
+
+        <section id="ipInfoCard" class="ipcheck-detail hidden">
+          <div class="ipcheck-detail-head">
+            <div>
+              <h3>📍 Thông tin IP</h3>
+              <p>Vị trí và nhà mạng được suy ra từ cơ sở dữ liệu IP, có thể không chính xác đến địa chỉ cụ thể.</p>
+            </div>
+            <span id="ipInfoBadge" class="ip-result-badge neutral">Chưa kiểm tra</span>
+          </div>
+
+          <div class="ip-info-grid">
+            <div class="ip-info-item">
+              <span>Quốc gia</span>
+              <strong id="ipInfoCountry">—</strong>
+            </div>
+            <div class="ip-info-item">
+              <span>Tỉnh / Bang</span>
+              <strong id="ipInfoRegion">—</strong>
+            </div>
+            <div class="ip-info-item">
+              <span>Thành phố</span>
+              <strong id="ipInfoCity">—</strong>
+            </div>
+            <div class="ip-info-item">
+              <span>Mã quốc gia</span>
+              <strong id="ipInfoCountryCode">—</strong>
+            </div>
+            <div class="ip-info-item">
+              <span>ISP / Nhà mạng</span>
+              <strong id="ipInfoIsp">—</strong>
+            </div>
+            <div class="ip-info-item">
+              <span>Tổ chức</span>
+              <strong id="ipInfoOrg">—</strong>
+            </div>
+            <div class="ip-info-item">
+              <span>ASN</span>
+              <strong id="ipInfoAsn">—</strong>
+            </div>
+            <div class="ip-info-item">
+              <span>Múi giờ</span>
+              <strong id="ipInfoTimezone">—</strong>
+            </div>
+            <div class="ip-info-item">
+              <span>Tọa độ gần đúng</span>
+              <strong id="ipInfoCoords">—</strong>
+            </div>
+            <div class="ip-info-item">
+              <span>Loại IP</span>
+              <strong id="ipInfoType">—</strong>
+            </div>
+          </div>
+        </section>
+
+
+        <section id="ipPlatformCard" class="ipcheck-detail hidden">
+          <div class="ipcheck-detail-head">
+            <div>
+              <h3>🌐 Tín hiệu nền tảng</h3>
+              <p>Kiểm tra IP hiện tại với YouTube, Facebook và TikTok.</p>
+            </div>
+            <span id="ipPlatformBadge" class="ip-result-badge neutral">Chưa kiểm tra</span>
+          </div>
+
+          <div class="ip-platform-grid">
+            <div class="ip-platform-item">
+              <div class="ip-platform-name"><span class="ip-dot yt"></span>YouTube</div>
+              <strong id="ipPlatformYoutube">—</strong>
+              <small id="ipPlatformYoutubeNote">Chưa kiểm tra</small>
+            </div>
+            <div class="ip-platform-item">
+              <div class="ip-platform-name"><span class="ip-dot fb"></span>Facebook</div>
+              <strong id="ipPlatformFacebook">—</strong>
+              <small id="ipPlatformFacebookNote">Chưa kiểm tra</small>
+            </div>
+            <div class="ip-platform-item">
+              <div class="ip-platform-name"><span class="ip-dot tt"></span>TikTok</div>
+              <strong id="ipPlatformTiktok">—</strong>
+              <small id="ipPlatformTiktokNote">Chưa kiểm tra</small>
+            </div>
+          </div>
+        </section>
+
+        <section id="ipYoutubeCard" class="ipcheck-detail hidden">
+          <div class="ipcheck-detail-head">
+            <div>
+              <h3>▶️ Chi tiết YouTube / Google</h3>
+              <p>Kiểm tra truy cập và dấu hiệu rate-limit theo IP.</p>
+            </div>
+            <span id="ipYoutubeBadge" class="ip-result-badge neutral">Chưa kiểm tra</span>
+          </div>
+          <div id="ipYoutubeDetails" class="ipcheck-lines"></div>
+        </section>
+
+        <section id="ipBlacklistCard" class="ipcheck-detail hidden">
+          <div class="ipcheck-detail-head">
+            <div>
+              <h3>🧱 DNS blacklist</h3>
+              <p id="ipBlacklistMeta">0 danh sách đã kiểm tra</p>
+            </div>
+          </div>
+          <div id="ipBlacklistRows" class="ip-blacklist-grid"></div>
+        </section>
+
+        <div class="ipcheck-note">
+          “Listed” ở một blacklist email/spam không đồng nghĩa YouTube đã chặn IP.
+          Kết quả đáng chú ý nhất là YouTube trả 429/403, trang “unusual traffic”, hoặc nhiều blacklist đồng thời.
+        </div>
+      </section>
+    </section>
+
+    
+
+
+    <section id="aiStudioPage" class="tool-page">
+      <section class="card bas-shell">
+        <div class="bas-hero"><span class="bas-hero-icon">✦</span><div><h2>AI Sáng tạo BaByLon</h2><p>Viết nội dung · Prompt · Giọng đọc · Chép lời</p></div><button id="basOpenHub" type="button" title="Mở Trung tâm AI">⚙ API</button></div>
+        <div class="bas-panel">
+          <label for="basTask">Bạn muốn AI làm gì?</label>
+          <select id="basTask"><option value="script">🎬 Viết kịch bản video</option><option value="prompt_image">🎨 Tạo prompt hình ảnh</option><option value="prompt_video">🎥 Tạo prompt video (Flow/Veo/Kling)</option><option value="social">📱 Viết bài Facebook</option><option value="youtube">▶ Tiêu đề, mô tả, hashtag YouTube</option><option value="rewrite">✍ Biên tập / viết lại</option><option value="translate">🌐 Dịch văn bản sang tiếng Việt</option><option value="custom">✨ Yêu cầu tùy chỉnh</option></select>
+          <label for="basInput">Chủ đề hoặc yêu cầu</label><textarea id="basInput" rows="5" placeholder="Ví dụ: Viết kịch bản 60 giây về cách tiết kiệm tiền; giọng gần gũi, có câu mở đầu hấp dẫn..."></textarea>
+          <button type="button" class="bas-main" id="basGenerate">✦ TẠO NỘI DUNG BẰNG AI</button>
+          <div class="bas-result-head"><strong>✧ Kết quả AI</strong><span>Dùng chung nhà cung cấp đã chọn</span></div>
+          <textarea id="basOutput" rows="9" placeholder="Nội dung AI sẽ xuất hiện tại đây..." aria-label="Kết quả AI"></textarea>
+          <div class="bas-actions"><button id="basCopy" type="button">▢ Sao chép</button><button id="basSendFlow" type="button">🪄 Đưa vào Flow Auto</button><button id="basUseOutputVoice" type="button">🔊 Đưa vào giọng đọc</button></div>
+        </div>
+        <details class="bas-extra"><summary>🔊 Tạo giọng đọc (TTS trên trình duyệt, miễn phí)</summary><div class="bas-panel"><p class="bah-note">Phát giọng đọc bằng giọng cài sẵn của Chrome/Cốc Cốc hoặc hệ điều hành. Chất lượng và tiếng Việt phụ thuộc giọng có sẵn; không xuất file MP3.</p><textarea id="basVoiceText" rows="3" placeholder="Nhập văn bản cần đọc..."></textarea><div class="bas-two"><label>Giọng đọc<select id="basVoice"></select></label><label>Tốc độ<select id="basSpeed"><option value="0.8">Chậm</option><option value="1" selected>Bình thường</option><option value="1.2">Nhanh</option></select></label></div><div class="bas-actions"><button id="basSpeak" type="button">▶ Đọc văn bản</button><button id="basStopVoice" type="button">■ Dừng</button></div></div></details>
+        <details class="bas-extra"><summary>🎙 Chuyển âm thanh thành chữ (Groq Whisper)</summary><div class="bas-panel"><p class="bah-note">Chọn tệp âm thanh dưới 20 MB. Tệp được gửi tới Groq bằng API key của bạn. Không tải tệp lên nếu chứa thông tin riêng tư.</p><input id="basAudio" type="file" accept="audio/*,.mp3,.mp4,.m4a,.wav,.webm,.ogg"><button id="basTranscribe" type="button" class="bas-main">🎙 CHÉP LỜI ÂM THANH</button></div></details>
+        <div id="basStatus" class="bas-status" role="status">Sẵn sàng. Chọn tác vụ, nhập nội dung và bắt đầu.</div>
+      </section>
+    </section>
+    <section id="youtubeVideoPage" class="tool-page">
+      <section class="card byv-shell">
+        <div class="byv-hero">
+          <div class="byv-hero-top">
+            <div class="byv-hero-icon" aria-hidden="true">▶</div>
+            <div class="byv-hero-title"><h2>Phân tích video đa website</h2></div>
+          </div>
+          <div class="byv-video-context" id="byvVideoContext">
+            <span class="byv-context-dot" aria-hidden="true"></span>
+            <div class="byv-context-copy">
+              <strong id="byvVideoTitle">Đang kiểm tra trang video...</strong>
+            </div>
+          </div>
+        </div>
+        <div class="byv-workspace">
+          <div class="byv-all-actions">
+            <button id="byvRunAll" type="button" class="byv-btn byv-btn-primary byv-btn-full byv-run-all"><span aria-hidden="true">⚡</span> CHẠY CẢ 3 · PHỤ ĐỀ + AI + BÌNH LUẬN</button>
+            <div id="byvAllProgress" class="byv-all-progress" hidden aria-label="Tiến độ chạy ba công cụ">
+              <div class="byv-all-steps">
+                <span id="byvAllStepSrt" class="byv-all-step" data-state="pending">▤ Phụ đề</span>
+                <span id="byvAllStepAi" class="byv-all-step" data-state="pending">✦ AI</span>
+                <span id="byvAllStepComments" class="byv-all-step" data-state="pending">♥ Bình luận</span>
+              </div>
+              <p id="byvAllSummary" class="byv-all-summary" role="status" aria-live="polite">Đang chuẩn bị…</p>
+            </div>
+          </div>
+          <div class="byv-tabs" role="tablist" aria-label="Công cụ phân tích video">
+            <button class="byv-tab is-active" id="byvTabSrt" type="button" role="tab" aria-selected="true" aria-controls="byvPaneSrt" data-byv-tab="srt"><span>▤</span> Phụ đề SRT</button>
+            <button class="byv-tab" id="byvTabAi" type="button" role="tab" aria-selected="false" aria-controls="byvPaneAi" data-byv-tab="ai"><span>✦</span> Smart AI</button>
+            <button class="byv-tab" id="byvTabComments" type="button" role="tab" aria-selected="false" aria-controls="byvPaneComments" data-byv-tab="comments"><span>♥</span> Top 50 bình luận</button>
+          </div>
+          <div id="byvPaneSrt" class="byv-pane is-active" role="tabpanel" aria-labelledby="byvTabSrt">
+            <div class="byv-pane-heading">
+              <div><h3>Phụ đề của video</h3><p>Đọc phụ đề có sẵn, giữ mốc thời gian chính xác.</p></div>
+              <span id="byvSrtCount" class="byv-count">Chưa đọc</span>
+            </div>
+            <button id="byvLoadSrt" type="button" class="byv-btn byv-btn-primary byv-btn-full"><span>▤</span> ĐỌC PHỤ ĐỀ VIDEO</button>
+            <div class="byv-action-row">
+              <button id="byvDownloadSrt" type="button" class="byv-btn byv-btn-soft"><span>↓</span> Tải SRT</button>
+              <button id="byvDownloadTxt" type="button" class="byv-btn byv-btn-soft"><span>↓</span> Tải TXT</button>
+              <button id="byvCopyTranscript" type="button" class="byv-btn byv-btn-soft"><span>▢</span> Sao chép</button>
+            </div>
+            <div class="byv-universal-import">
+              <label class="byv-file-label">Nhập phụ đề SRT / VTT <input id="byvSubtitleFile" type="file" accept=".srt,.vtt,text/vtt,text/plain"></label>
+              <button id="byvImportSubtitle" type="button" class="byv-btn byv-btn-soft">↥ Đọc tệp phụ đề</button>
+              <label class="byv-file-label">Không có phụ đề? Chọn tệp âm thanh/video dưới 20 MB <input id="byvAudioFile" type="file" accept="audio/*,video/mp4,.mp3,.mp4,.m4a,.wav,.webm,.ogg"></label>
+              <button id="byvTranscribeAudio" type="button" class="byv-btn byv-btn-soft">🎙 Chép lời bằng Groq Whisper</button>
+              <div class="byv-action-row">
+                <button id="byvRecordStart" type="button" class="byv-btn byv-btn-primary">● Ghi âm tab</button>
+                <button id="byvRecordStop" type="button" class="byv-btn byv-btn-soft" disabled>■ Dừng &amp; chép lời</button>
+              </div>
+              <small>Ghi âm tab cần bạn bấm cho phép và phát video; chỉ chép lời phần đã phát. Giữ bảng BaByLon mở khi ghi. Bản ghi được gửi tới Groq sau khi dừng; không vượt DRM.</small>
+            </div>
+            <div class="byv-result">
+              <div class="byv-result-head"><strong>▤ Nội dung phụ đề</strong><span id="byvSrtLang">Bản gốc</span></div>
+              <div id="byvTranscript" class="byv-transcript" aria-live="polite"><div class="byv-empty"><span>▤</span><strong>Chưa có phụ đề</strong><small>Mở trang có video hoặc nhập tệp SRT/VTT.</small></div></div>
+            </div>
+            <p class="byv-footnote">Chỉ đọc phụ đề được phép truy cập. Với website không có phụ đề, nhập SRT/VTT hoặc chép lời từ tệp âm thanh.</p>
+          </div>
+          <div id="byvPaneAi" class="byv-pane" role="tabpanel" aria-labelledby="byvTabAi" hidden>
+            <div class="byv-pane-heading">
+              <div><h3>AI · Tóm tắt video</h3><p>Chỉ dựa trên phụ đề, không sử dụng bình luận. Dùng AI đã chọn trong Trung tâm AI.</p></div>
+              <span class="byv-count byv-ai-chip">✦ AI</span>
+            </div>
+            <button id="byvRunSmart" type="button" class="byv-btn byv-btn-primary byv-btn-full">⚡ SMART AI · NHANH + CHUYÊN SÂU</button>
+            <div id="byvSmartResults" class="byv-smart-results" aria-live="polite"></div>
+            <div class="byv-ai-mode-picker" role="group" aria-label="Chế độ AI">
+              <button type="button" class="byv-ai-mode is-active" data-byv-ai-mode="quick" aria-pressed="true"><span>⚡</span><strong>Tóm tắt nhanh</strong><small>Ngắn gọn · Mốc thời gian</small></button>
+              <button type="button" class="byv-ai-mode" data-byv-ai-mode="detail" aria-pressed="false"><span>✦</span><strong>Phân tích chi tiết</strong><small>Đầy đủ · Luận điểm</small></button>
+            </div>
+            <div class="byv-ai-note"><span>✧</span><p id="byvAiModeDescription">Tóm tắt ngắn theo mốc thời gian, ưu tiên model Flash tốc độ cao.</p></div>
+            <button id="byvRunGemini" type="button" class="byv-btn byv-btn-primary byv-btn-full">✦ TÓM TẮT NHANH BẰNG GEMINI</button>
+            <div class="byv-ai-secondary-actions">
+              <button id="byvCopyGemini" type="button" class="byv-btn byv-btn-soft"><span>▢</span> Sao chép</button>
+              <button id="byvRefreshGemini" type="button" class="byv-btn byv-btn-soft"><span>↻</span> Tạo lại (bỏ cache)</button>
+            </div>
+            <div class="byv-result">
+              <div class="byv-result-head"><strong id="byvAnalysisLabel">✦ Tóm tắt nhanh</strong><span id="byvAnalysisMeta">Tiếng Việt</span></div>
+              <div id="byvAnalysis" class="byv-analysis" aria-live="polite"><div class="byv-empty"><span>✧</span><strong>Chưa có tóm tắt nhanh</strong><small>Nhấn “Tóm tắt nhanh” để bắt đầu.</small></div></div>
+            </div>
+            <p class="byv-footnote">⚡ Ưu tiên model Flash, hiển thị dần khi có streaming. Phụ đề và kết quả được lưu tạm trên máy để mở lại nhanh hơn. Tốc độ phụ thuộc API, độ dài phụ đề và quota.</p>
+          </div>
+          <div id="byvPaneComments" class="byv-pane" role="tabpanel" aria-labelledby="byvTabComments" hidden>
+            <div class="byv-pane-heading">
+              <div><h3>Bình luận được yêu thích</h3><p>Xếp hạng theo số lượt thích, cao nhất trước.</p></div>
+              <span id="byvCommentsCount" class="byv-count">0 / 50</span>
+            </div>
+            <button id="byvLoadComments" type="button" class="byv-btn byv-btn-primary byv-btn-full"><span>♥</span> THU THẬP TOP 50 BÌNH LUẬN</button>
+            <button id="byvExportComments" type="button" class="byv-btn byv-btn-soft byv-btn-full byv-export"><span>↓</span> Tải TXT · Bình luận Top1, Top2…</button>
+            <button id="byvExportCommentsCsv" type="button" class="byv-btn byv-btn-soft byv-btn-full byv-export byv-export-secondary"><span>▦</span> Xuất CSV chi tiết (Excel)</button>
+            <div class="byv-result">
+              <div class="byv-result-head"><strong>♥ Bảng xếp hạng</strong><span>Nhiều like nhất ↓</span></div>
+              <div id="byvComments" class="byv-comments"><div class="byv-empty"><span>♡</span><strong>Chưa có bình luận</strong><small>Nhấn “Thu thập Top 50 bình luận” để bắt đầu.</small></div></div>
+            </div>
+            <p class="byv-footnote">BaByLon xếp hạng trong số bình luận công khai đã tải được. Nếu YouTube giới hạn tải, kết quả không nhất thiết là Top 50 toàn video.</p>
+          </div>
+          <div id="byvStatus" class="byv-status" role="status" aria-live="polite"><span class="byv-status-dot" aria-hidden="true"></span><span id="byvStatusText">Sẵn sàng phân tích video.</span></div>
+        </div>
+      </section>
+    </section>
+
+<section id="ytAnalyticsPage" class="tool-page">
+      <section class="card yt-analytics-card">
+        <div class="yt-analytics-hero">
+          <div class="yt-analytics-icon">📊</div>
+          <div>
+            <h2>Phân tích YouTube của tôi</h2>
+            <p>Dùng tài khoản YouTube đang đăng nhập để đọc YouTube Studio của chính bạn.</p>
+          </div>
+        </div>
+
+        <div class="yt-analytics-note">
+          BaByLon đọc trực tiếp dữ liệu mà YouTube Studio tải trong phiên đăng nhập: Studio API nội bộ + Network + giao diện, rồi đối chiếu và tính các chỉ số có thể suy ra. Không cần API key.
+          Các chỉ số doanh thu chỉ xuất hiện nếu kênh có quyền xem dữ liệu kiếm tiền.
+        </div>
+
+        <div class="yt-analytics-actions">
+          <button id="ytAnalyticsRunBtn" class="primary yt-analytics-run" type="button">PHÂN TÍCH KÊNH CỦA TÔI</button>
+          <button id="ytAnalyticsOpenStudioBtn" class="secondary" type="button">MỞ YOUTUBE STUDIO</button>
+        </div>
+        <div id="ytAnalyticsStatus" class="status">Bấm Phân tích để bắt đầu.</div>
+        <div id="ytAnalyticsProgress" class="yt-analytics-progress hidden">
+          <div class="progress-track"><div id="ytAnalyticsProgressBar" class="progress-bar"></div></div>
+          <div id="ytAnalyticsProgressText" class="progress-text"></div>
+        </div>
+      </section>
+
+      <section id="ytAnalyticsSummary" class="card yt-analytics-card hidden">
+        <div class="result-head">
+          <div>
+            <h2>📈 Số liệu chính thức 28 ngày</h2>
+            <p id="ytAnalyticsChannelName">Kênh đang đăng nhập</p>
+          </div>
+          <span id="ytAnalyticsUpdated" class="yt-analytics-updated"></span>
+        </div>
+        <div class="yt-metric-grid">
+          <div class="yt-metric"><span>Lượt xem</span><strong id="ytMetricViews">—</strong></div>
+          <div class="yt-metric"><span>Giờ xem</span><strong id="ytMetricWatchTime">—</strong></div>
+          <div class="yt-metric"><span>Người đăng ký</span><strong id="ytMetricSubscribers">—</strong></div>
+          <div class="yt-metric reach"><span>Hiển thị</span><strong id="ytMetricImpressions">—</strong></div>
+          <div class="yt-metric reach"><span>CTR lượt hiển thị</span><strong id="ytMetricCtr">—</strong><small class="yt-metric-scope" id="ytMetricCtrScope"></small></div>
+          <div class="yt-metric"><span>Thời lượng xem TB</span><strong id="ytMetricAvd">—</strong></div>
+          <div class="yt-metric revenue"><span>Doanh thu</span><strong id="ytMetricRevenue">—</strong></div>
+          <div class="yt-metric revenue"><span>RPM (Studio)</span><strong id="ytMetricRpm">—</strong><small class="yt-metric-scope" id="ytMetricRpmScope"></small></div>
+          <div class="yt-metric revenue"><span>CPM</span><strong id="ytMetricCpm">—</strong></div>
+          <div class="yt-metric audience"><span>Người xem mới</span><strong id="ytMetricNewViewers">—</strong></div>
+          <div class="yt-metric audience"><span>Quay lại</span><strong id="ytMetricReturningViewers">—</strong></div>
+          <div class="yt-metric audience"><span>Khán giả tháng</span><strong id="ytMetricMonthlyAudience">—</strong></div>
+          <div class="yt-metric"><span>% xem trung bình</span><strong id="ytMetricAvgPercent">—</strong></div>
+          <div class="yt-metric audience"><span>Người xem duy nhất</span><strong id="ytMetricUniqueViewers">—</strong></div>
+          <div class="yt-metric revenue"><span>Lượt phát có quảng cáo</span><strong id="ytMetricMonetizedPlaybacks">—</strong></div>
+          <div class="yt-metric revenue"><span>Doanh thu quảng cáo</span><strong id="ytMetricAdRevenue">—</strong></div>
+
+          <div class="yt-metric shorts"><span>Engaged views</span><strong id="ytMetricEngagedViews">—</strong></div>
+          <div class="yt-metric shorts"><span>Hiện trong Shorts feed</span><strong id="ytMetricShownInFeed">—</strong></div>
+          <div class="yt-metric shorts"><span>Ở lại xem</span><strong id="ytMetricStayedToWatch">—</strong></div>
+          <div class="yt-metric"><span>Lượt thích</span><strong id="ytMetricLikes">—</strong></div>
+          <div class="yt-metric"><span>Bình luận</span><strong id="ytMetricComments">—</strong></div>
+          <div class="yt-metric"><span>Chia sẻ</span><strong id="ytMetricShares">—</strong></div>
+          <div class="yt-metric realtime"><span>Lượt xem 48 giờ</span><strong id="ytMetricRealtimeViews">—</strong></div>
+          
+          
+          
+        </div>
+        <div class="yt-official-note">CTR, RPM và CPM chỉ hiển thị khi đọc được giá trị chính thức từ YouTube Studio. BaByLon không tự tính các chỉ số này từ lượt xem/doanh thu.</div>
+        <div id="ytAnalyticsDeepStatus" class="yt-deep-status">BaByLon đang ưu tiên giá trị hiển thị chính thức từ YouTube Studio và chỉ dùng Studio API để bổ sung khi giá trị hợp lệ.</div>
+      </section>
+
+      <section id="ytAudienceTimesCard" class="card yt-analytics-card hidden">
+        <div class="result-head">
+          <div>
+            <h2>🟣 Khi người xem của bạn ở trên YouTube</h2>
+            <p>Dữ liệu 28 ngày gần nhất • theo múi giờ của YouTube Studio</p>
+          </div>
+        </div>
+        <div id="ytAudienceHeatmapWrap" class="yt-heatmap-wrap hidden">
+          <div id="ytAudienceHeatmap" class="yt-heatmap"></div>
+          <div class="yt-heatmap-legend"><span>Ít người xem</span><i class="l1"></i><i class="l2"></i><i class="l3"></i><i class="l4"></i><span>Nhiều người xem</span></div>
+        </div>
+        <div id="ytAudienceBestTimes" class="yt-best-times"></div>
+        <div id="ytAudienceEmpty" class="empty hidden">YouTube Studio chưa cung cấp đủ dữ liệu thời gian người xem cho kênh này.</div>
+      </section>
+
+      <section id="ytAnalyticsInsights" class="card yt-analytics-card hidden">
+        <div class="result-head"><div><h2>🎯 Đọc nhanh</h2><p>Những chỉ số nên chú ý</p></div></div>
+        <div id="ytAnalyticsInsightList" class="yt-insight-list"></div>
+        <div class="section-note">CTR, RPM, CPM, doanh thu và thời gian người xem là dữ liệu riêng của kênh đang đăng nhập; BaByLon không dùng các số này để giả lập cho kênh đối thủ.</div>
+      </section>
+    </section>
+
+
+    <section id="twoFactorPage" class="tool-page">
+      <section class="card twofa-card">
+        <div class="section-title-row twofa-title-row">
+          <div>
+            <h2>🔐 Đọc mã 2FA</h2>
+            <p>Tạo mã TOTP 6/8 số từ khóa bí mật Base32 hoặc link <code>otpauth://</code>.</p>
+          </div>
+          <span class="twofa-local-badge">LOCAL</span>
+        </div>
+
+        <div class="twofa-security-note">
+          🔒 Secret chỉ được xử lý ngay trong BaByLon trên máy này, không lưu vào Storage và không gửi lên máy chủ.
+        </div>
+
+        <label for="twofaSecretInput">Secret 2FA / otpauth URL</label>
+        <div class="twofa-secret-row">
+          <input id="twofaSecretInput" type="password" autocomplete="off" spellcheck="false"
+                 placeholder="VD: JBSWY3DPEHPK3PXP hoặc otpauth://totp/..." />
+          <button id="twofaQuickClearBtn" class="secondary twofa-icon-btn twofa-clear-x hidden" type="button"
+                  title="Xóa nhanh mã hiện tại và nhập mã mới" aria-label="Xóa nhanh và nhập mã 2FA mới">×</button>
+          <button id="twofaCopySecretBtn" class="secondary twofa-icon-btn twofa-copy-secret-btn" type="button"
+                  title="Sao chép Secret 2FA" aria-label="Sao chép Secret 2FA">📋</button>
+          <button id="twofaRevealBtn" class="secondary twofa-icon-btn" type="button" title="Hiện/ẩn secret">👁</button>
+        </div>
+
+        <div id="twofaMeta" class="twofa-meta hidden">
+          <span id="twofaAccount">TOTP</span>
+          <span id="twofaAlgorithm">SHA1 • 6 số • 30s</span>
+        </div>
+
+        <button id="twofaGenerateBtn" class="primary" type="button">ĐỌC MÃ 2FA</button>
+
+        <div id="twofaResult" class="twofa-result hidden" aria-live="polite">
+          <div class="twofa-result-top">
+            <span>MÃ HIỆN TẠI</span>
+            <span id="twofaCountdownText">30 giây</span>
+          </div>
+          <button id="twofaCodeBtn" class="twofa-code" type="button" title="Bấm vào mã để sao chép">
+            <span id="twofaCode">------</span>
+            <small>Bấm vào mã để sao chép</small>
+          </button>
+          <button id="twofaCopyBtn" class="twofa-copy-btn" type="button" title="Sao chép mã 2FA hiện tại">📋 SAO CHÉP MÃ 2FA</button>
+          <div class="twofa-countdown-track"><div id="twofaCountdownBar" class="twofa-countdown-bar"></div></div>
+        </div>
+
+        <div id="twofaStatus" class="status">Dán secret của tài khoản bạn sở hữu rồi bấm Đọc mã 2FA.</div>
+        <div class="twofa-actions">
+          <button id="twofaClearBtn" class="secondary" type="button">Xóa secret</button>
+        </div>
+      </section>
+    </section>
+
+    <section id="qrPage" class="tool-page">
+      <section class="card qr-card">
+        <div class="qr-hero">
+          <div class="qr-hero-icon">▦</div>
+          <div class="qr-hero-copy">
+            <h2>Tạo mã QR</h2>
+            <p>Tạo QR cho link/văn bản, chuyển ảnh sang điện thoại hoặc VietQR ngân hàng.</p>
+          </div>
+          <span class="qr-phone-badge">📱 PHONE</span>
+        </div>
+
+        <div class="qr-mode-tabs" role="tablist" aria-label="Loại mã QR">
+          <button id="qrModeTextBtn" class="qr-mode-btn active" type="button" role="tab" aria-selected="true">🔗 Link / Văn bản</button>
+          <button id="qrModeImageBtn" class="qr-mode-btn" type="button" role="tab" aria-selected="false">🖼️ Chuyển ảnh</button>
+          <button id="qrModeBankBtn" class="qr-mode-btn" type="button" role="tab" aria-selected="false">🏦 Ngân hàng</button>
+        </div>
+
+        <div class="qr-security-note">
+          🔒 Không đưa mật khẩu, API key, PIN, OTP hoặc secret 2FA vào QR. Ảnh chuyển qua QR sẽ được tải lên dịch vụ lưu tạm thời.
+        </div>
+
+        <div id="qrTextMode" class="qr-mode-panel">
+          <div class="qr-auto-row">
+            <label class="qr-auto-toggle" for="qrAutoCurrentToggle">
+              <input id="qrAutoCurrentToggle" type="checkbox" checked>
+              <span>⚡ Tự động lấy trang hiện tại + hiện QR ngay</span>
+            </label>
+            <small>Chỉ lấy URL tab đang mở, không đọc mật khẩu hay dữ liệu đăng nhập.</small>
+          </div>
+
+          <label for="qrContentInput">Link / văn bản cần tạo QR</label>
+          <div class="qr-input-row">
+            <textarea id="qrContentInput" rows="4" maxlength="1500" spellcheck="false"
+                      placeholder="Dán link website, video, bài viết hoặc văn bản cần mở nhanh trên điện thoại..."></textarea>
+            <button id="qrCurrentPageBtn" class="secondary qr-current-btn" type="button">Trang hiện tại</button>
+          </div>
+          <div class="qr-input-meta">
+            <span id="qrDetectedType">Chưa có nội dung</span>
+            <span id="qrCharCount">0 / 1500</span>
+          </div>
+
+          <div class="qr-options-row">
+            <label>
+              <span>Kích thước</span>
+              <select id="qrSizeSelect">
+                <option value="240">240 × 240</option>
+                <option value="320" selected>320 × 320</option>
+                <option value="420">420 × 420</option>
+                <option value="512">512 × 512</option>
+              </select>
+            </label>
+            <label>
+              <span>Tên file PNG</span>
+              <input id="qrFilenameInput" type="text" value="BaByLon-QR.png" autocomplete="off" spellcheck="false">
+            </label>
+          </div>
+
+          <button id="qrGenerateBtn" class="primary qr-generate-btn" type="button">▦ TẠO MÃ QR</button>
+        </div>
+
+        <div id="qrImageMode" class="qr-mode-panel hidden">
+          <div class="qr-image-transfer-head">
+            <div>
+              <strong>🖼️ Chuyển ảnh qua QR</strong>
+              <small>Chọn ảnh trên máy tính → tải tạm → tạo QR → quét trên điện thoại để mở/tải ảnh.</small>
+            </div>
+            <span class="qr-temp-badge">TEMP</span>
+          </div>
+
+          <label class="qr-image-drop" id="qrImageDrop" for="qrImageFileInput">
+            <input id="qrImageFileInput" type="file" accept="image/png,image/jpeg,image/webp,image/gif" hidden>
+            <span class="qr-image-drop-icon">🖼️</span>
+            <strong>CHỌN ẢNH</strong>
+            <small>PNG • JPG • WebP • GIF • tối đa 20 MB</small>
+          </label>
+
+          <div id="qrImageSelected" class="qr-image-selected hidden">
+            <img id="qrImagePreview" alt="Ảnh đã chọn">
+            <div class="qr-image-selected-info">
+              <strong id="qrImageFileName">Chưa chọn ảnh</strong>
+              <small id="qrImageFileMeta"></small>
+            </div>
+            <button id="qrImageRemoveBtn" class="secondary" type="button">× BỎ</button>
+          </div>
+
+          <div class="qr-image-transfer-options">
+            <label>
+              <span>Link tự hết hạn</span>
+              <select id="qrImageExpireSelect">
+                <option value="600">10 phút</option>
+                <option value="3600" selected>1 giờ</option>
+                <option value="21600">6 giờ</option>
+                <option value="86400">24 giờ</option>
+                <option value="172800">48 giờ</option>
+              </select>
+            </label>
+            <label>
+              <span>Kích thước QR</span>
+              <select id="qrImageQrSizeSelect">
+                <option value="240">240 × 240</option>
+                <option value="320" selected>320 × 320</option>
+                <option value="420">420 × 420</option>
+                <option value="512">512 × 512</option>
+              </select>
+            </label>
+          </div>
+
+          <button id="qrImageGenerateBtn" class="primary qr-generate-btn qr-image-generate" type="button">🖼️ TẠO QR CHUYỂN ẢNH</button>
+          <div class="qr-image-privacy">Ảnh được tải lên máy chủ lưu tạm bên thứ ba để điện thoại có thể truy cập. Không dùng cho ảnh riêng tư hoặc nhạy cảm.</div>
+        </div>
+
+        <div id="qrBankMode" class="qr-mode-panel hidden">
+          <div class="qr-bank-head">
+            <div>
+              <strong>🏦 Tạo VietQR chuyển khoản</strong>
+              <small>Chọn ngân hàng + nhập số tài khoản. Số tiền và nội dung có thể để trống.</small>
+            </div>
+            <span class="qr-vietqr-badge">VIETQR</span>
+          </div>
+
+          <div class="qr-bank-grid">
+            <label class="qr-bank-wide">
+              <span>Ngân hàng nhận</span>
+              <select id="qrBankSelect">
+                <option value="">Đang tải danh sách ngân hàng...</option>
+              </select>
+            </label>
+            <label class="qr-bank-wide">
+              <span>Số tài khoản</span>
+              <input id="qrBankAccount" type="text" inputmode="numeric" maxlength="19" autocomplete="off" spellcheck="false" placeholder="Nhập số tài khoản người nhận">
+            </label>
+            <label>
+              <span>Số tiền <em>không bắt buộc</em></span>
+              <input id="qrBankAmount" type="text" inputmode="numeric" maxlength="18" autocomplete="off" placeholder="VD: 500000">
+            </label>
+            <label>
+              <span>Nội dung <em>không bắt buộc</em></span>
+              <input id="qrBankInfo" type="text" maxlength="50" autocomplete="off" spellcheck="false" placeholder="VD: Thanh toan">
+            </label>
+          </div>
+
+          <div class="qr-bank-summary" id="qrBankSummary">Chọn ngân hàng và nhập số tài khoản để tạo QR.</div>
+          <button id="qrBankGenerateBtn" class="primary qr-generate-btn qr-bank-generate" type="button">🏦 TẠO VIETQR NGÂN HÀNG</button>
+          <div class="qr-bank-warning">⚠ BaByLon không xác minh tên chủ tài khoản. Khi quét, hãy kiểm tra đúng tên người nhận trong ứng dụng ngân hàng trước khi xác nhận chuyển tiền.</div>
+        </div>
+
+        <div id="qrStatus" class="status qr-status">Tự động lấy trang hiện tại đang bật. Mở mục Tạo QR là QR sẽ hiện ngay.</div>
+
+        <div id="qrResult" class="qr-result hidden" aria-live="polite">
+          <div class="qr-preview-wrap">
+            <div class="qr-preview-head">
+              <div>
+                <strong id="qrPreviewTitle">MÃ QR SẴN SÀNG</strong>
+                <small id="qrPreviewSubtitle">Dùng camera hoặc ứng dụng QR trên điện thoại để quét.</small>
+              </div>
+              <span id="qrResultType" class="qr-result-type">LINK</span>
+            </div>
+            <div class="qr-image-shell">
+              <img id="qrImage" alt="Mã QR BaByLon">
+            </div>
+          </div>
+          <div class="qr-result-actions">
+            <button id="qrDownloadBtn" class="qr-download-btn" type="button">⬇ TẢI QR PNG</button>
+            <button id="qrCopyContentBtn" class="secondary" type="button">📋 SAO CHÉP NỘI DUNG</button>
+            <button id="qrClearBtn" class="secondary" type="button">× XÓA</button>
+          </div>
+          <div class="qr-result-text">
+            <span id="qrResultLabel">Nội dung QR</span>
+            <strong id="qrResultText"></strong>
+          </div>
+        </div>
+
+        <div id="qrTextNote" class="qr-note">QR link/văn bản được gửi đến dịch vụ dựng ảnh QR, vì vậy không nhập dữ liệu bí mật.</div>
+        <div id="qrImageNote" class="qr-note hidden">Ảnh được lưu tạm để tạo link cho điện thoại. Link hết hạn theo thời gian bạn chọn và không nên dùng cho ảnh riêng tư.</div>
+        <div id="qrBankNote" class="qr-note hidden">VietQR được tạo bằng Quick Link của VietQR. Thông tin ngân hàng, số tài khoản, số tiền/nội dung (nếu có) được gửi tới dịch vụ VietQR để tạo ảnh.</div>
+      </section>
+    </section>
+
+    <section id="translatorPage" class="tool-page">
+      <section class="card translator-card">
+        <div class="translator-hero">
+          <div class="translator-icon">🌍</div>
+          <div class="translator-hero-copy">
+            <h2>Dịch ngôn ngữ</h2>
+            <p id="translatorHeroDesc">Dịch văn bản và phụ đề SRT bằng Gemini Pro • hiểu toàn đoạn, tiếng lóng và ngữ cảnh tốt hơn.</p>
+          </div>
+          <button id="translatorNewBtn" class="translator-new-btn" type="button" title="Xóa nội dung hiện tại và bắt đầu bản dịch mới">↻ <span>DỊCH MỚI</span></button>
+        </div>
+
+        <div class="translator-lang-row">
+          <div class="translator-lang-box">
+            <span>Ngôn ngữ nguồn</span>
+            <div class="translator-select-wrap translator-search-select">
+              <img id="translatorSourceFlagImg" class="translator-select-flag" alt="" hidden>
+              <span id="translatorSourceFlagText" class="translator-select-flag-fallback">🌐</span>
+              <button id="translatorSourcePicker" class="translator-search-trigger" type="button" aria-haspopup="listbox" aria-expanded="false">
+                <span id="translatorSourcePickerLabel">✨ Tự động phát hiện</span>
+                <span class="translator-search-caret" aria-hidden="true">▾</span>
+              </button>
+              <select id="translatorSourceLang" class="translator-native-select" tabindex="-1" aria-hidden="true"></select>
+              <div id="translatorSourceMenu" class="translator-search-menu" hidden>
+                <div class="translator-search-input-wrap">
+                  <span aria-hidden="true">🔎</span>
+                  <input id="translatorSourceSearch" class="translator-search-input" type="search" autocomplete="off" spellcheck="false" placeholder="Gõ để tìm ngôn ngữ...">
+                </div>
+                <div id="translatorSourceOptions" class="translator-search-options" role="listbox" aria-label="Ngôn ngữ nguồn"></div>
+              </div>
+            </div>
+          </div>
+          <button id="translatorSwapBtn" class="translator-swap-btn" type="button" title="Đổi ngôn ngữ nguồn và đích">⇄</button>
+          <div class="translator-lang-box">
+            <span>Dịch sang</span>
+            <div class="translator-select-wrap translator-search-select">
+              <img id="translatorTargetFlagImg" class="translator-select-flag" alt="" hidden>
+              <span id="translatorTargetFlagText" class="translator-select-flag-fallback">🌐</span>
+              <button id="translatorTargetPicker" class="translator-search-trigger" type="button" aria-haspopup="listbox" aria-expanded="false">
+                <span id="translatorTargetPickerLabel">Tiếng Việt</span>
+                <span class="translator-search-caret" aria-hidden="true">▾</span>
+              </button>
+              <select id="translatorTargetLang" class="translator-native-select" tabindex="-1" aria-hidden="true"></select>
+              <div id="translatorTargetMenu" class="translator-search-menu" hidden>
+                <div class="translator-search-input-wrap">
+                  <span aria-hidden="true">🔎</span>
+                  <input id="translatorTargetSearch" class="translator-search-input" type="search" autocomplete="off" spellcheck="false" placeholder="Gõ để tìm ngôn ngữ...">
+                </div>
+                <div id="translatorTargetOptions" class="translator-search-options" role="listbox" aria-label="Ngôn ngữ đích"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="translator-detect-line">
+          <span>Nhận dạng nguồn:</span> <strong id="translatorDetectedLang" data-code="">Tự động</strong>
+          <span id="translatorEngineBadge" class="translator-engine-badge">GEMINI AI</span>
+        </div>
+
+        <div class="translator-ai-settings translator-gemini-only-settings translator-gemini-settings-compact">
+          <details id="translatorGeminiSettingsDetails" class="translator-gemini-settings-details">
+            <summary class="translator-gemini-settings-summary" title="Mở/thu gọn Model Gemini">
+              <span class="translator-gemini-summary-icon" aria-hidden="true">⚙️</span>
+              <span class="translator-gemini-summary-copy">
+                <strong>Model Gemini</strong>
+                <small id="translatorGeminiCompactModel">Tự động ổn định — Pro → Flash khi hết quota</small>
+              </span>
+              <span id="translatorSharedApiCount" class="translator-gemini-summary-count">API chung: 0</span>
+              <span class="translator-gemini-summary-caret" aria-hidden="true">⌄</span>
+            </summary>
+
+            <div class="translator-gemini-settings-body">
+              <div id="translatorGeminiSettings" class="translator-ai-setting-row translator-gemini-settings-only">
+                <label class="translator-ai-field translator-ai-model-field">
+                  <span>Model Gemini cho Dịch ngôn ngữ</span>
+                  <select id="translatorGeminiModel">
+                    <option value="auto-smart" selected>Tự động ổn định — Pro → Flash khi hết quota</option>
+                    <option value="auto-pro">Tự động — ưu tiên Gemini Pro</option>
+                    <option value="gemini-3.1-pro-preview">Gemini 3.1 Pro Preview — chất lượng cao</option>
+                    <option value="gemini-2.5-pro">Gemini 2.5 Pro — nếu project có quyền</option>
+                    <option value="gemini-3.7-flash">Gemini 3.7 Flash — dự phòng chất lượng</option>
+                    <option value="gemini-3.6-flash">Gemini 3.6 Flash — dự phòng nhanh</option>
+                    <option value="gemini-2.5-flash">Gemini 2.5 Flash — tương thích rộng</option>
+                    <option value="gemini-3.5-flash-lite">Gemini 3.5 Flash-Lite — nhẹ/quota thấp</option>
+                  </select>
+                </label>
+              </div>
+              <div class="translator-shared-api-strip">
+                <div>
+                  <strong>🔑 API lấy từ Trung tâm Gemini chung</strong>
+                  <small>Hết quota hoặc lỗi quyền sẽ tự thử API tiếp theo trong kho chung.</small>
+                </div>
+                <button id="translatorOpenApiCenterBtn" type="button">QUẢN LÝ API</button>
+              </div>
+            </div>
+          </details>
+        </div>
+
+        <div class="translator-srt-import">
+          <input id="translatorSrtFile" type="file" accept=".srt,application/x-subrip,text/plain" hidden>
+          <button id="translatorSrtChooseBtn" class="translator-srt-choose-btn" type="button">📂 CHỌN FILE SRT</button>
+          <div class="translator-srt-file-meta">
+            <strong id="translatorSrtFileName">Chưa chọn file SRT</strong>
+            <span id="translatorSrtFileInfo">Bạn vẫn có thể dán SRT trực tiếp vào ô bên dưới.</span>
+          </div>
+        </div>
+
+        <div id="translatorBatchSrtPanel" class="translator-batch-srt-panel" hidden>
+          <div class="translator-batch-head">
+            <div>
+              <strong>🌐 Dịch SRT nhiều ngôn ngữ</strong>
+              <span>Khi nạp SRT, BaByLon không tự chọn ngôn ngữ. Bấm “＋ THÊM 9 MẶC ĐỊNH” để thêm nhanh Anh, Đức, Pháp, Nhật, Hàn, Tây Ban Nha, Bồ Đào Nha, Hà Lan và Ý. Khi đã thêm đủ, nút sẽ đổi thành “− BỎ 9 MẶC ĐỊNH”; ngôn ngữ bạn tự thêm vẫn được giữ.</span>
+            </div>
+            <div class="translator-batch-head-actions">
+              <button id="translatorAddDefaultBatchBtn" class="translator-batch-default-btn" type="button">＋ THÊM 9 MẶC ĐỊNH</button>
+              <span id="translatorBatchCount" class="translator-batch-count">0 đã chọn</span>
+            </div>
+          </div>
+          <div class="translator-batch-picker-wrap">
+            <button id="translatorBatchPickerBtn" class="translator-batch-picker-btn" type="button" aria-haspopup="listbox" aria-expanded="false">
+              <span>＋ Chọn ngôn ngữ đích</span><span aria-hidden="true">▾</span>
+            </button>
+            <div id="translatorBatchMenu" class="translator-batch-menu" hidden>
+              <div class="translator-search-input-wrap">
+                <span aria-hidden="true">🔎</span>
+                <input id="translatorBatchSearch" class="translator-search-input" type="search" autocomplete="off" spellcheck="false" placeholder="Tìm Anh, Đức, Pháp, Nhật...">
+              </div>
+              <div id="translatorBatchOptions" class="translator-batch-options" role="listbox" aria-multiselectable="true" aria-label="Chọn các ngôn ngữ đích"></div>
+            </div>
+          </div>
+          <div id="translatorBatchSelected" class="translator-batch-selected"><span class="translator-batch-empty">Chưa chọn ngôn ngữ.</span></div>
+          <small class="translator-batch-note">💡 Gemini AI dịch lần lượt từng ngôn ngữ, giữ nguyên timestamp và tự chuyển API dự phòng khi API đang dùng hết quota. Bạn vẫn chọn chính xác file nào cần tải.</small>
+        </div>
+
+        <div class="translator-editor-block">
+          <div class="translator-editor-head"><strong id="translatorInputTitle">Văn bản cần dịch</strong><span id="translatorInputCount">0 ký tự</span></div>
+          <textarea id="translatorInput" rows="8" spellcheck="false" placeholder="Dán nội dung cần dịch vào đây... hoặc bấm CHỌN FILE SRT. BaByLon sẽ giữ nguyên số thứ tự và timestamp."></textarea>
+        </div>
+
+        <button id="translatorRunBtn" class="primary translator-run-btn" type="button">🌐 DỊCH BẰNG GEMINI AI</button>
+        <div id="translatorStatus" class="translator-status">Nhập nội dung, Gemini AI sẽ tự nhận diện ngôn ngữ nếu bạn chọn Tự động.</div>
+
+        <div class="translator-editor-block translator-output-block">
+          <div class="translator-editor-head"><strong id="translatorOutputTitle">Bản dịch</strong><span id="translatorOutputCount">0 ký tự</span></div>
+          <textarea id="translatorOutput" rows="8" spellcheck="false" placeholder="Bản dịch sẽ xuất hiện ở đây..." readonly></textarea>
+        </div>
+
+        <div id="translatorBatchResultsPanel" class="translator-batch-results-panel" hidden>
+          <div class="translator-batch-results-head">
+            <div class="translator-batch-results-title">
+              <span class="translator-batch-results-icon">📦</span>
+              <div>
+                <strong>Các file SRT đã dịch</strong>
+                <span id="translatorBatchResultsSummary">Chưa có file nào.</span>
+              </div>
+            </div>
+            <label class="translator-batch-select-all"><input id="translatorBatchSelectAll" type="checkbox" disabled> Chọn tất cả</label>
+          </div>
+
+          <div class="translator-batch-folder-bar">
+            <span class="translator-batch-folder-icon">📁</span>
+            <div class="translator-batch-folder-info">
+              <strong>Nơi lưu file</strong>
+              <span id="translatorBatchFolderName">Chưa chọn • bấm “Chọn thư mục” để lưu thẳng vào nơi bạn muốn</span>
+            </div>
+            <button id="translatorBatchChooseFolderBtn" class="translator-batch-folder-btn" type="button">📁 Chọn thư mục</button>
+            <button id="translatorBatchForgetFolderBtn" class="translator-batch-folder-forget" type="button" title="Bỏ thư mục đã nhớ" hidden>✕</button>
+          </div>
+
+          <div class="translator-batch-list-head" aria-hidden="true">
+            <span>Chọn</span>
+            <span>Ngôn ngữ</span>
+            <span>Tên file SRT</span>
+            <span>Thao tác</span>
+          </div>
+          <div id="translatorBatchResults" class="translator-batch-results"></div>
+          <div class="translator-batch-download-footer">
+            <span>✓ Tích file bạn muốn lấy • có thể đổi tên trước khi lưu</span>
+            <button id="translatorBatchDownloadAllBtn" class="translator-batch-download-all" type="button" disabled>⬇ TẢI FILE ĐÃ CHỌN</button>
+          </div>
+        </div>
+
+        <div id="translatorSrtDownloadPanel" class="translator-srt-download-panel" hidden>
+          <div class="translator-srt-download-head">
+            <div>
+              <strong>🎬 File SRT đã dịch</strong>
+              <span>Xem trước ở ô Bản dịch phía trên, đặt tên rồi tải xuống.</span>
+            </div>
+            <span class="translator-srt-ready-badge">SRT READY</span>
+          </div>
+          <div class="translator-srt-download-row">
+            <label class="translator-srt-name-field">
+              <span>Tên file</span>
+              <input id="translatorSrtFilename" type="text" autocomplete="off" spellcheck="false" placeholder="vidu_vi.srt">
+            </label>
+            <button id="translatorSrtDownloadBtn" class="translator-srt-download-btn" type="button">⬇ TẢI FILE SRT</button>
+          </div>
+        </div>
+
+        <div class="translator-actions">
+          <button id="translatorCopyBtn" class="translator-copy-btn" type="button">📋 SAO CHÉP BẢN DỊCH</button>
+          <button id="translatorClearBtn" class="secondary" type="button">× Xóa</button>
+        </div>
+
+        <div id="translatorNote" class="translator-note">
+          Gemini Pro đọc ngữ cảnh theo cụm nhưng BaByLon tự ghép lại đúng từng số thứ tự + timestamp. Có thể dịch hàng loạt nhiều ngôn ngữ và chọn file cần tải.
+        </div>
+      </section>
+    </section>
+
+
+    <section id="flowBatchPage" class="tool-page">
+      <section class="card flow-batch-card">
+        <div class="flow-batch-hero">
+          <div class="flow-batch-icon">🪄</div>
+          <div class="flow-batch-hero-copy">
+            <h2>Flow Auto Creator</h2>
+            <p>Nhập prompt → BaByLon tự vào Google Flow tạo ảnh → chờ render → đưa ảnh về đây để bạn duyệt trước khi tải.</p>
+          </div>
+          <span id="flowBatchFlowState" class="flow-batch-flow-state warn">CHƯA MỞ FLOW</span>
+        </div>
+
+        <div class="flow-batch-quick-actions">
+          <button id="flowBatchOpenBtn" class="flow-batch-outline" type="button">↗ MỞ GOOGLE FLOW</button>
+          <button id="flowBatchCheckBtn" class="flow-batch-outline" type="button">✓ KIỂM TRA FLOW</button><button id="flowBatchAiPromptBtn" class="flow-batch-outline" type="button">✦ AI TẠO PROMPT</button>
+        </div>
+
+        <div class="flow-batch-editor">
+          <div class="flow-batch-label-row">
+            <label for="flowBatchPrompts">PROMPT ẢNH</label>
+            <span id="flowBatchPromptCount">0 prompt</span>
+          </div>
+          <textarea id="flowBatchPrompts" rows="8" spellcheck="false" placeholder="Một prompt duy nhất, hoặc nhiều prompt:
+---
+Prompt 2
+---
+Prompt 3"></textarea>
+          <div class="flow-batch-editor-tools">
+            <button id="flowBatchImportBtn" class="flow-batch-mini" type="button">📄 Nhập TXT</button>
+            <input id="flowBatchPromptFile" type="file" accept=".txt,text/plain" hidden>
+            <button id="flowBatchClearBtn" class="flow-batch-mini danger" type="button">× Xóa</button>
+          </div>
+        </div>
+
+        <div class="flow-batch-settings">
+          <label>
+            <span>Dấu ngăn cách</span>
+            <select id="flowBatchDelimiter">
+              <option value="---" selected>---</option>
+              <option value="line">Mỗi dòng = 1 prompt</option>
+              <option value="blank">Dòng trống</option>
+              <option value="custom">Tự nhập…</option>
+            </select>
+          </label>
+          <label id="flowBatchCustomWrap" hidden>
+            <span>Dấu tùy chỉnh</span>
+            <input id="flowBatchCustomDelimiter" type="text" value="###" maxlength="24" hidden>
+          </label>
+          <label>
+            <span>Tool sẽ làm</span>
+            <select disabled>
+              <option selected>Ảnh · tự tạo → chờ bạn duyệt</option>
+            </select>
+          </label>
+        </div>
+
+        <details class="flow-batch-advanced">
+          <summary>⚙ Cài đặt chờ / thử lại</summary>
+          <div class="flow-batch-settings two">
+            <label>
+              <span>Tối đa chờ Flow render</span>
+              <select id="flowBatchTimeout">
+                <option value="60000">60 giây</option>
+                <option value="120000">2 phút</option>
+                <option value="180000" selected>3 phút · mặc định</option>
+                <option value="300000">5 phút</option>
+              </select>
+            </label>
+            <label>
+              <span>Tự thử lại khi lỗi</span>
+              <select id="flowBatchRetry">
+                <option value="0">Không thử lại</option>
+                <option value="1" selected>1 lần</option>
+                <option value="2">2 lần</option>
+              </select>
+            </label>
+          </div>
+          <p class="flow-batch-help">BaByLon chỉ chuyển sang prompt tiếp theo sau khi bạn duyệt ảnh hiện tại. Nếu Flow giới hạn/chặn, tool tự tạm dừng.</p>
+        </details>
+
+        <button id="flowBatchPrepareBtn" class="flow-batch-prepare" type="button">☷ XEM HÀNG ĐỢI</button>
+
+        <div class="flow-batch-controls">
+          <button id="flowBatchStartBtn" class="flow-batch-start" type="button">▶ TẠO ẢNH TỰ ĐỘNG</button>
+          <button id="flowBatchPauseBtn" class="flow-batch-pause" type="button" disabled>⏸ TẠM DỪNG</button>
+          <button id="flowBatchStopBtn" class="flow-batch-stop" type="button" disabled>■ DỪNG</button>
+        </div>
+
+        <div id="flowBatchStatus" class="flow-batch-status">Chỉ cần nhập prompt. BaByLon sẽ dùng project Flow đang mở hoặc project đã dùng gần nhất.</div>
+
+        <section id="flowBatchReviewPanel" class="flow-review-panel" hidden>
+          <div class="flow-review-head">
+            <div>
+              <span>ẢNH FLOW ĐÃ TẠO</span>
+              <strong>Chờ bạn duyệt trước khi tải</strong>
+            </div>
+            <em>✓ Chọn ảnh muốn tải</em>
+          </div>
+          <p id="flowBatchReviewPrompt" class="flow-review-prompt"></p>
+          <div id="flowBatchReviewGallery" class="flow-review-gallery"></div>
+          <div class="flow-review-actions">
+            <button id="flowBatchApproveBtn" class="flow-review-approve" type="button">✓ ĐỒNG Ý & TẢI ẢNH ĐÃ CHỌN</button>
+            <button id="flowBatchRegenerateBtn" class="flow-review-regenerate" type="button">↻ TẠO LẠI</button>
+            <button id="flowBatchSkipBtn" class="flow-review-skip" type="button">→ BỎ QUA</button>
+          </div>
+        </section>
+
+        <div class="flow-batch-stats five">
+          <div><span>TỔNG</span><b id="flowBatchStatTotal">0</b></div>
+          <div><span>ĐANG TẠO</span><b id="flowBatchStatRunning">0</b></div>
+          <div><span>CHỜ DUYỆT</span><b id="flowBatchStatReview">0</b></div>
+          <div><span>ĐÃ XỬ LÝ</span><b id="flowBatchStatDone">0</b></div>
+          <div><span>LỖI</span><b id="flowBatchStatError">0</b></div>
+        </div>
+        <div class="flow-batch-progress">
+          <div class="flow-batch-progress-track"><i id="flowBatchProgressBar"></i></div>
+          <span id="flowBatchProgressText">0/0</span>
+        </div>
+
+        <div class="flow-batch-queue-head">
+          <strong>Hàng đợi & kết quả</strong>
+          <button id="flowBatchRetryErrorsBtn" class="flow-batch-mini" type="button">↻ Chạy lại lỗi</button>
+        </div>
+        <div id="flowBatchQueue" class="flow-batch-queue">
+          <div class="flow-batch-empty">Dán prompt rồi bấm <b>TẠO ẢNH TỰ ĐỘNG</b>.</div>
+        </div>
+
+        <details class="flow-batch-log-panel">
+          <summary>› Tiến trình & lỗi</summary>
+          <div id="flowBatchLog" class="flow-batch-log"></div>
+        </details>
+
+        <div class="flow-batch-note">
+          <b>Luồng mới:</b> BaByLon tự nhập prompt → bấm Tạo trong Flow → chờ ảnh render thật → hiển thị ảnh ngay trong BaByLon → chỉ tải khi bạn bấm <b>ĐỒNG Ý & TẢI</b>. Không còn chỉ dán prompt rồi coi là hoàn tất.
+        </div>
+      </section>
+    </section>
+
+    <section id="scrollPage" class="tool-page">
+      <section class="card scroll-card">
+        <div class="scroll-hero">
+          <div class="scroll-illustration">⬇</div>
+          <div>
+            <h2>Cuộn Xuống / Cuộn Lên</h2>
+            <p>Tự cuộn xuống cuối trang hoặc cuộn nhanh lên đầu trang.</p>
+          </div>
+        </div>
+
+        <div class="current-page-box">
+          <span>Trang hiện tại</span>
+          <strong id="scrollPageTitle">Đang kiểm tra...</strong>
+          <small id="scrollPageUrl"></small>
+        </div>
+
+        <div class="scroll-action-stack">
+          <button id="scrollToggleBtn" class="scroll-main-btn">BẮT ĐẦU TỰ CUỘN</button>
+          <button id="scrollTopBtn" class="scroll-top-btn" type="button">
+            <span class="scroll-top-icon">↑</span>
+            CUỘN LÊN ĐẦU TRANG
+          </button>
+        </div>
+        <div id="scrollStatus" class="scroll-status">Bấm bắt đầu để cuộn trang đang mở.</div>
+
+        <div class="scroll-features">
+          <div><span>✓</span> Tự nhận vùng cuộn chính</div>
+          <div><span>✓</span> Chờ nội dung tải thêm</div>
+          <div><span>✓</span> Bấm lại để dừng</div>
+          <div><span>✓</span> Tiếp tục chạy khi đóng popup</div>
+        </div>
+      </section>
+    </section>
+    <div class="babylon-latest-version" aria-label="Phiên bản BaByLon mới nhất">Bản cập nhật mới nhất · v1.43.16</div>
+  </main>
+  <script src="popup.js"></script>
+  <script src="date-checker.js"></script>
+  <script src="video-downloader.js"></script>
+  <script src="series-downloader.js"></script>
+  <script src="ip-checker.js"></script>
+  <script src="world-time.js"></script>
+  <script src="twofa.js"></script>
+  <script src="gemini-api-center.js"></script>
+  <script src="ai-provider-hub.js"></script>
+  <script src="ai-studio.js"></script>
+  <script src="translator.js"></script>
+  <script src="qr-tool.js"></script>
+  <script src="flow-batch.js"></script>
+  <script src="youtube-analytics.js"></script>
+<script src="universal-caption-reader.js"></script>
+<script src="youtube-video-tools.js"></script>
+  <script src="dock-controller.js"></script>
+</body>
+</html>

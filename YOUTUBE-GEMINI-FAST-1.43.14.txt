@@ -1,0 +1,9 @@
+BaByLon v1.43.14 - Gemini tóm tắt nhanh kiểu Glasp
+- Chế độ Tóm tắt nhanh và Phân tích chi tiết trong tab Gemini AI.
+- Ưu tiên model Flash/Flash-Lite thực tế được API key hỗ trợ.
+- Streaming SSE để hiển thị tóm tắt dần khi API hỗ trợ.
+- Cache phụ đề 24 giờ và tóm tắt 7 ngày trong chrome.storage.local.
+- Cache model API 24 giờ; ghi nhớ model hoạt động theo API key fingerprint.
+- Nút Sao chép và Tạo lại bỏ cache.
+- Mốc thời gian có thể bấm để tua video.
+- Không bảo đảm 3 giây cho mọi video; phụ thuộc API, quota, độ dài.

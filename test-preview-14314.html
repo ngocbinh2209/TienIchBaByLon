@@ -1,0 +1,87 @@
+<!doctype html><html lang="vi"><head><meta charset="utf-8"><link rel="stylesheet" href="popup.css"><style>body{width:500px;margin:0 auto;padding:12px;background:#eef2fa}#youtubeVideoPage{display:block!important}.tool-page{display:block!important}main{width:100%}</style></head><body><main><section class="tool-page" id="youtubeVideoPage">
+<section class="card byv-shell">
+<div class="byv-hero">
+<div class="byv-hero-top">
+<div aria-hidden="true" class="byv-hero-icon">▶</div>
+<div class="byv-hero-title">
+<span class="byv-eyebrow">BABYLON · YOUTUBE STUDIO TOOLS</span>
+<h2>Phân tích video YouTube</h2>
+<p>Phụ đề SRT · Gemini AI · Bình luận nổi bật</p>
+</div>
+</div>
+<div class="byv-video-context" id="byvVideoContext">
+<span aria-hidden="true" class="byv-context-dot"></span>
+<div class="byv-context-copy">
+<small>VIDEO ĐANG CHỌN</small>
+<strong id="byvVideoTitle">Đang kiểm tra tab YouTube...</strong>
+</div>
+<span class="byv-context-tag" id="byvVideoTag">YT</span>
+</div>
+</div>
+<div class="byv-workspace">
+<div aria-label="Ba công cụ phân tích" class="byv-metrics">
+<div><span>▤</span><strong>Phụ đề</strong><small>Đọc &amp; xuất SRT</small></div>
+<div><span>✦</span><strong>Gemini AI</strong><small>Phân tích video</small></div>
+<div><span>♥</span><strong>Top 50</strong><small>Bình luận nhiều like</small></div>
+</div>
+<div aria-label="Công cụ phân tích video" class="byv-tabs" role="tablist">
+<button aria-controls="byvPaneSrt" aria-selected="true" class="byv-tab is-active" data-byv-tab="srt" id="byvTabSrt" role="tab" type="button"><span>▤</span> Phụ đề SRT</button>
+<button aria-controls="byvPaneAi" aria-selected="false" class="byv-tab" data-byv-tab="ai" id="byvTabAi" role="tab" type="button"><span>✦</span> Gemini AI</button>
+<button aria-controls="byvPaneComments" aria-selected="false" class="byv-tab" data-byv-tab="comments" id="byvTabComments" role="tab" type="button"><span>♥</span> Top 50 bình luận</button>
+</div>
+<div aria-labelledby="byvTabSrt" class="byv-pane is-active" id="byvPaneSrt" role="tabpanel">
+<div class="byv-pane-heading">
+<div><h3>Phụ đề của video</h3><p>Đọc phụ đề có sẵn, giữ mốc thời gian chính xác.</p></div>
+<span class="byv-count" id="byvSrtCount">Chưa đọc</span>
+</div>
+<button class="byv-btn byv-btn-primary byv-btn-full" id="byvLoadSrt" type="button"><span>▤</span> ĐỌC PHỤ ĐỀ VIDEO</button>
+<div class="byv-action-row">
+<button class="byv-btn byv-btn-soft" id="byvDownloadSrt" type="button"><span>↓</span> Tải SRT</button>
+<button class="byv-btn byv-btn-soft" id="byvDownloadTxt" type="button"><span>↓</span> Tải TXT</button>
+<button class="byv-btn byv-btn-soft" id="byvCopyTranscript" type="button"><span>▢</span> Sao chép</button>
+</div>
+<div class="byv-result">
+<div class="byv-result-head"><strong>▤ Nội dung phụ đề</strong><span id="byvSrtLang">Bản gốc</span></div>
+<div aria-live="polite" class="byv-transcript" id="byvTranscript"><div class="byv-empty"><span>▤</span><strong>Chưa có phụ đề</strong><small>Mở video YouTube và nhấn “Đọc phụ đề video”.</small></div></div>
+</div>
+<p class="byv-footnote">Chỉ lấy phụ đề YouTube cho phép truy cập. Nhấn mốc thời gian để tua video.</p>
+</div>
+<div aria-labelledby="byvTabAi" class="byv-pane" hidden="" id="byvPaneAi" role="tabpanel">
+<div class="byv-pane-heading">
+<div><h3>Gemini AI · Tóm tắt video</h3><p>Chỉ dựa trên phụ đề, không sử dụng bình luận.</p></div>
+<span class="byv-count byv-ai-chip">✦ AI</span>
+</div>
+<div aria-label="Chế độ Gemini" class="byv-ai-mode-picker" role="group">
+<button aria-pressed="true" class="byv-ai-mode is-active" data-byv-ai-mode="quick" type="button"><span>⚡</span><strong>Tóm tắt nhanh</strong><small>Ngắn gọn · Mốc thời gian</small></button>
+<button aria-pressed="false" class="byv-ai-mode" data-byv-ai-mode="detail" type="button"><span>✦</span><strong>Phân tích chi tiết</strong><small>Đầy đủ · Luận điểm</small></button>
+</div>
+<div class="byv-ai-note"><span>✧</span><p id="byvAiModeDescription">Tóm tắt ngắn theo mốc thời gian, ưu tiên model Flash tốc độ cao.</p></div>
+<button class="byv-btn byv-btn-primary byv-btn-full" id="byvRunGemini" type="button">✦ TÓM TẮT NHANH BẰNG GEMINI</button>
+<div class="byv-ai-secondary-actions">
+<button class="byv-btn byv-btn-soft" id="byvCopyGemini" type="button"><span>▢</span> Sao chép</button>
+<button class="byv-btn byv-btn-soft" id="byvRefreshGemini" type="button"><span>↻</span> Tạo lại (bỏ cache)</button>
+</div>
+<div class="byv-result">
+<div class="byv-result-head"><strong id="byvAnalysisLabel">✦ Tóm tắt nhanh</strong><span id="byvAnalysisMeta">Tiếng Việt</span></div>
+<div aria-live="polite" class="byv-analysis" id="byvAnalysis"><div class="byv-empty"><span>✧</span><strong>Chưa có tóm tắt nhanh</strong><small>Nhấn “Tóm tắt nhanh” để bắt đầu.</small></div></div>
+</div>
+<p class="byv-footnote">⚡ Ưu tiên model Flash, hiển thị dần khi có streaming. Phụ đề và kết quả được lưu tạm trên máy để mở lại nhanh hơn. Tốc độ phụ thuộc API, độ dài phụ đề và quota.</p>
+</div>
+<div aria-labelledby="byvTabComments" class="byv-pane" hidden="" id="byvPaneComments" role="tabpanel">
+<div class="byv-pane-heading">
+<div><h3>Bình luận được yêu thích</h3><p>Xếp hạng theo số lượt thích, cao nhất trước.</p></div>
+<span class="byv-count" id="byvCommentsCount">0 / 50</span>
+</div>
+<button class="byv-btn byv-btn-primary byv-btn-full" id="byvLoadComments" type="button"><span>♥</span> THU THẬP TOP 50 BÌNH LUẬN</button>
+<button class="byv-btn byv-btn-soft byv-btn-full byv-export" id="byvExportComments" type="button"><span>↓</span> Tải TXT · Bình luận Top1, Top2…</button>
+<button class="byv-btn byv-btn-soft byv-btn-full byv-export byv-export-secondary" id="byvExportCommentsCsv" type="button"><span>▦</span> Xuất CSV chi tiết (Excel)</button>
+<div class="byv-result">
+<div class="byv-result-head"><strong>♥ Bảng xếp hạng</strong><span>Nhiều like nhất ↓</span></div>
+<div class="byv-comments" id="byvComments"><div class="byv-empty"><span>♡</span><strong>Chưa có bình luận</strong><small>Nhấn “Thu thập Top 50 bình luận” để bắt đầu.</small></div></div>
+</div>
+<p class="byv-footnote">BaByLon xếp hạng trong số bình luận công khai đã tải được. Nếu YouTube giới hạn tải, kết quả không nhất thiết là Top 50 toàn video.</p>
+</div>
+<div aria-live="polite" class="byv-status" id="byvStatus" role="status"><span aria-hidden="true" class="byv-status-dot"></span><span id="byvStatusText">Sẵn sàng phân tích video.</span></div>
+</div>
+</section>
+</section></main><script src="youtube-video-tools.js"></script></body></html>

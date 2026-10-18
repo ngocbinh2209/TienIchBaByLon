@@ -1,0 +1,16 @@
+{
+  "manifest_version": 3,
+  "name": "Tự động mời người đã thích",
+  "version": "1.0.0",
+  "description": "Tự động mời những người đã thích bài viết Facebook theo số lượng và độ trễ tùy chọn.",
+  "permissions": ["activeTab", "scripting"],
+  "host_permissions": [
+    "https://facebook.com/*",
+    "https://www.facebook.com/*",
+    "https://m.facebook.com/*"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Tự động mời"
+  }
+}

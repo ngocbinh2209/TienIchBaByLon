@@ -1,0 +1,7 @@
+BaByLon 1.43.11 — sửa lỗi phụ đề YouTube
+
+Lỗi: YouTube /api/timedtext có thể trả HTTP 200 với body rỗng (PoToken).
+Cách mới: 1) thử URL phụ đề đã được trình phát sử dụng; 2) thử track phụ đề công khai; 3) đọc bảng Transcript gốc trên trang YouTube.
+Không yêu cầu Glasp, không tự tạo PoToken và không bảo đảm tất cả video có thể lấy phụ đề.
+Nếu YouTube không cho phép truy cập, hiển thị lỗi và gợi ý mở bảng Transcript.
+Các chức năng khác được giữ nguyên.

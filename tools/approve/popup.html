@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FB Group Auto Mod</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="../embedded-dark.css">
+</head>
+<body>
+  <div class="popup">
+    <div class="compact-head">
+      <div id="status">Đọc từng bài: việc làm an toàn → duyệt; mỗi thành viên chỉ giữ tối đa 1 bài trong 24 giờ; bài dư, rủi ro, quảng cáo, vay vốn hoặc lừa đảo → từ chối.</div>
+      <div id="approveSharedAi" class="approve-shared-ai">🤖 Gemini AI • dùng API từ Trung tâm Gemini chung của BaByLon</div>
+    </div>
+
+    <div class="action-grid">
+      <button id="scanBtn">🔎 Scan bài chờ duyệt</button>
+      <button id="autoBtn">✅ Tự động duyệt</button>
+    </div>
+
+    <div id="moderationStats" class="moderation-stats">
+      <div class="stat-box stat-approve"><span id="approveStatLabel">SẼ DUYỆT</span><strong id="approvedCount">0</strong></div>
+      <div class="stat-box stat-reject"><span id="rejectStatLabel">SẼ TỪ CHỐI</span><strong id="rejectedCount">0</strong></div>
+      <div class="stat-box stat-total"><span>TỔNG</span><strong id="totalCount">0</strong></div>
+    </div>
+
+    <section id="searchPanel" class="search-panel">
+      <div class="search-row">
+        <div class="search-box">
+          <span class="search-icon">⌕</span>
+          <input id="searchInput" type="search" placeholder="Tìm bài đã quét: tên người đăng, nội dung..." autocomplete="off" />
+          <button id="clearSearchBtn" class="icon-btn" type="button" title="Xóa tìm kiếm">×</button>
+        </div>
+        <select id="statusFilter" title="Lọc kết quả">
+          <option value="ALL">Tất cả</option>
+          <option value="APPROVE">Duyệt</option>
+          <option value="REJECT">Từ chối</option>
+        </select>
+      </div>
+      <div class="search-meta">
+        <span id="cacheInfo">Chưa có dữ liệu quét.</span>
+        <span id="searchCount"></span>
+      </div>
+    </section>
+
+    <div id="result"></div>
+  </div>
+  <script src="popup.js"></script>
+  <script src="../theme-sync.js"></script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Tab mới · BaByLon</title>
+  <style>
+    :root{color-scheme:light dark;font-family:Arial,Helvetica,sans-serif}
+    *{box-sizing:border-box}
+    body{margin:0;min-height:100vh;background:#fff;color:#202124;display:grid;place-items:center}
+    .wrap{width:min(680px,calc(100vw - 48px));text-align:center;margin-top:-8vh}
+    .brand{font-size:62px;font-weight:700;letter-spacing:-4px;margin-bottom:34px;color:#4285f4}
+    .brand span:nth-child(2){color:#ea4335}.brand span:nth-child(3){color:#fbbc05}.brand span:nth-child(4){color:#4285f4}.brand span:nth-child(5){color:#34a853}.brand span:nth-child(6){color:#ea4335}
+    form{display:flex;align-items:center;gap:10px;width:100%;height:50px;border:1px solid #dfe1e5;border-radius:26px;padding:0 18px;box-shadow:0 1px 6px rgba(32,33,36,.08);background:#fff}
+    form:focus-within{box-shadow:0 1px 8px rgba(32,33,36,.22)}
+    .glass{font-size:18px;color:#5f6368}
+    input{flex:1;border:0;outline:0;font-size:16px;background:transparent;color:#202124}
+    .hint{margin-top:18px;color:#7a8088;font-size:12px}
+    @media(prefers-color-scheme:dark){body{background:#202124;color:#e8eaed}.brand{filter:saturate(.92) brightness(1.08)}form{background:#303134;border-color:#5f6368}input{color:#e8eaed}.glass,.hint{color:#bdc1c6}}
+  </style>
+  <script src="assistive-touch.js" defer></script>
+</head>
+<body>
+  <main class="wrap">
+    <div class="brand" aria-label="Google"><span>G</span><span>o</span><span>o</span><span>g</span><span>l</span><span>e</span></div>
+    <form action="https://www.google.com/search" method="get">
+      <span class="glass">⌕</span>
+      <input name="q" type="search" autocomplete="off" autofocus placeholder="Tìm kiếm Google hoặc nhập từ khóa">
+    </form>
+    <div class="hint">BaByLon AssistiveTouch luôn sẵn ở mép màn hình trên tab mới này.</div>
+  </main>
+</body>
+</html>
