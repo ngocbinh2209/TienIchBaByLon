@@ -1158,8 +1158,8 @@ async function openToolPage(pageId, options = {}) {
   if (pageId === 'flowBatchPage' && window.BaByLonFlowBatch?.onOpen) {
     await window.BaByLonFlowBatch.onOpen();
   }
-  if (pageId === 'aiStudioPage' && window.BaByLonAIStudio?.onOpen) {
-    await window.BaByLonAIStudio.onOpen();
+  if (pageId === 'creatingFlowPage' && window.BaByLonCreatingFlow?.onOpen) {
+    await window.BaByLonCreatingFlow.onOpen();
   }
   if (pageId === 'youtubeVideoPage' && window.BaByLonYoutubeVideoTools?.onOpen) {
     await window.BaByLonYoutubeVideoTools.onOpen();
@@ -1456,7 +1456,7 @@ window.addEventListener('DOMContentLoaded', async () => {
     });
   }
   const validPages = [
-    'keywordsPage','ytAnalyticsPage','aiStudioPage','youtubeVideoPage','scrollPage','datePage','worldTimePage','downloadPage','seriesDownloadPage','ipCheckPage','twoFactorPage','qrPage','translatorPage','flowBatchPage',
+    'keywordsPage','ytAnalyticsPage','creatingFlowPage','youtubeVideoPage','scrollPage','datePage','worldTimePage','downloadPage','seriesDownloadPage','ipCheckPage','twoFactorPage','qrPage','translatorPage','flowBatchPage',
     'newGroupsPage','inviteLikersPage','autoPostPage','approvePage'
   ];
   const pageId = validPages.includes(saved.babylonLastTool) ? saved.babylonLastTool : 'keywordsPage';
@@ -1464,7 +1464,7 @@ window.addEventListener('DOMContentLoaded', async () => {
   $('tabKeywords').addEventListener('click', () => openToolPage('keywordsPage'));
   $('tabYtAnalytics')?.addEventListener('click', () => openToolPage('ytAnalyticsPage'));
   $('tabYoutubeVideo')?.addEventListener('click', () => openToolPage('youtubeVideoPage'));
-  $('tabAiStudio')?.addEventListener('click', () => openToolPage('aiStudioPage'));
+  $('tabCreatingFlow')?.addEventListener('click', () => openToolPage('creatingFlowPage'));
   $('tabDate').addEventListener('click', () => openToolPage('datePage'));
   $('tabWorldTime').addEventListener('click', () => openToolPage('worldTimePage'));
   $('tabDownload').addEventListener('click', () => openToolPage('downloadPage'));

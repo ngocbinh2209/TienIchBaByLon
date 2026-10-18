@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>BaByLon</title>
   <link rel="stylesheet" href="popup.css" />
+  <link rel="stylesheet" href="creating-flow.css" />
 </head>
 <body>
   <main class="app">
@@ -123,7 +124,7 @@
         <span class="tool-platforms"><b class="pbadge all" title="Đa website">WEB</b></span>
       </button>
 
-      <button id="tabAiStudio" class="tool-tab" data-page="aiStudioPage" data-platforms="all" title="AI đa năng: viết nội dung, prompt, tạo giọng đọc, chép lời"><span class="tool-icon">✦</span><span class="tool-label">AI Sáng tạo</span><span class="tool-platforms"><b class="pbadge all">AI</b></span></button>
+      <button id="tabCreatingFlow" class="tool-tab" data-page="creatingFlowPage" data-platforms="all" title="Tạo ảnh và video hàng loạt trên Flow, tự động lưu theo số thứ tự"><span class="tool-icon">✦</span><span class="tool-label">Creating Flow</span><span class="tool-platforms"><b class="pbadge all">AI</b></span></button>
 
       <button id="tabScroll" class="tool-tab" data-page="scrollPage" data-platforms="all" title="Dùng được trên hầu hết website">
         <span class="tool-icon">⇅</span>
@@ -1046,21 +1047,25 @@
     
 
 
-    <section id="aiStudioPage" class="tool-page">
-      <section class="card bas-shell">
-        <div class="bas-hero"><span class="bas-hero-icon">✦</span><div><h2>AI Sáng tạo BaByLon</h2><p>Viết nội dung · Prompt · Giọng đọc · Chép lời</p></div><button id="basOpenHub" type="button" title="Mở Trung tâm AI">⚙ API</button></div>
-        <div class="bas-panel">
-          <label for="basTask">Bạn muốn AI làm gì?</label>
-          <select id="basTask"><option value="script">🎬 Viết kịch bản video</option><option value="prompt_image">🎨 Tạo prompt hình ảnh</option><option value="prompt_video">🎥 Tạo prompt video (Flow/Veo/Kling)</option><option value="social">📱 Viết bài Facebook</option><option value="youtube">▶ Tiêu đề, mô tả, hashtag YouTube</option><option value="rewrite">✍ Biên tập / viết lại</option><option value="translate">🌐 Dịch văn bản sang tiếng Việt</option><option value="custom">✨ Yêu cầu tùy chỉnh</option></select>
-          <label for="basInput">Chủ đề hoặc yêu cầu</label><textarea id="basInput" rows="5" placeholder="Ví dụ: Viết kịch bản 60 giây về cách tiết kiệm tiền; giọng gần gũi, có câu mở đầu hấp dẫn..."></textarea>
-          <button type="button" class="bas-main" id="basGenerate">✦ TẠO NỘI DUNG BẰNG AI</button>
-          <div class="bas-result-head"><strong>✧ Kết quả AI</strong><span>Dùng chung nhà cung cấp đã chọn</span></div>
-          <textarea id="basOutput" rows="9" placeholder="Nội dung AI sẽ xuất hiện tại đây..." aria-label="Kết quả AI"></textarea>
-          <div class="bas-actions"><button id="basCopy" type="button">▢ Sao chép</button><button id="basSendFlow" type="button">🪄 Đưa vào Flow Auto</button><button id="basUseOutputVoice" type="button">🔊 Đưa vào giọng đọc</button></div>
+    <section id="creatingFlowPage" class="tool-page">
+      <section class="card cf-shell">
+        <header class="cf-hero"><span>✦</span><div><h2>Creating Flow</h2><p>Tạo ảnh &amp; video hàng loạt · Tự động tải về</p></div></header>
+        <div class="cf-body">
+          <div class="cf-row"><label>Loại nội dung<select id="cfMode"><option value="image">Hình ảnh</option><option value="video">Video</option></select></label><label>Chờ tối đa mỗi prompt<select id="cfTimeout"><option value="60">1 phút</option><option value="120">2 phút</option><option value="180" selected>3 phút</option></select></label></div>
+          <label for="cfTab">Dự án Flow đang mở</label><div class="cf-tab-row"><select id="cfTab" aria-label="Chọn dự án Flow"></select><button id="cfRefresh" type="button">Làm mới</button></div>
+          <label for="cfPrompts">Prompt hàng loạt <span id="cfCount">0 prompt</span></label>
+          <textarea id="cfPrompts" rows="8" placeholder="Một chú mèo ngồi bên cửa sổ, ánh nắng buổi sáng&#10;Một ngôi nhà nhỏ giữa rừng thông, phong cách hoạt hình&#10;Một con thuyền trên hồ yên tĩnh lúc hoàng hôn"></textarea>
+          <p class="cf-hint">Mỗi dòng là một prompt. Gửi lần lượt từng prompt; chỉ gửi tiếp khi kết quả trước đã tạo và lưu xong. Tối đa 100 prompt mỗi đợt.</p>
+          <label>Số bắt đầu<input id="cfStartNumber" type="number" min="1" step="1" value="1" inputmode="numeric" style="width:100%;box-sizing:border-box;padding:10px;border:1px solid #dce1ee;border-radius:8px"></label>
+          <div class="cf-folder"><button id="cfFolder" type="button">📁 Chọn thư mục lưu</button><span id="cfFolderName">Chưa chọn thư mục</span></div>
+          <p class="cf-hint">Rê lên kết quả → ⋮ → Tải xuống → 2K. Tự lưu 1.png, 2.png… hoặc 1.mp4, 2.mp4… theo thứ tự ghi file thành công. Đuôi file theo định dạng thật. Đặt tên từ số bắt đầu đã nhập, tăng 1 sau mỗi file lưu thành công. Không ghi đè file đã có.</p>
+          <div class="cf-actions"><button id="cfStart" class="cf-primary" type="button">▶ Bắt đầu tạo &amp; tải</button><button id="cfStop" type="button" disabled>■ Dừng</button></div>
+          <button id="cfWindow" class="cf-window" type="button">↗ Mở cửa sổ chạy riêng</button>
+          <p class="cf-hint">Giữ cửa sổ Creating Flow mở và tab Flow còn hoạt động. Không tạo thủ công hoặc chạy Flow Auto đồng thời trong cùng dự án. Dừng ở đây không hủy tác vụ đã gửi lên Flow.</p>
+          <div id="cfStatus" class="cf-status" role="status">Chọn dự án, nhập prompt và chọn thư mục để bắt đầu.</div>
+          <div class="cf-progress"><strong id="cfSummary">Chưa có đợt chạy</strong></div>
+          <ol id="cfQueue" class="cf-queue" aria-label="Tiến độ từng prompt"></ol>
         </div>
-        <details class="bas-extra"><summary>🔊 Tạo giọng đọc (TTS trên trình duyệt, miễn phí)</summary><div class="bas-panel"><p class="bah-note">Phát giọng đọc bằng giọng cài sẵn của Chrome/Cốc Cốc hoặc hệ điều hành. Chất lượng và tiếng Việt phụ thuộc giọng có sẵn; không xuất file MP3.</p><textarea id="basVoiceText" rows="3" placeholder="Nhập văn bản cần đọc..."></textarea><div class="bas-two"><label>Giọng đọc<select id="basVoice"></select></label><label>Tốc độ<select id="basSpeed"><option value="0.8">Chậm</option><option value="1" selected>Bình thường</option><option value="1.2">Nhanh</option></select></label></div><div class="bas-actions"><button id="basSpeak" type="button">▶ Đọc văn bản</button><button id="basStopVoice" type="button">■ Dừng</button></div></div></details>
-        <details class="bas-extra"><summary>🎙 Chuyển âm thanh thành chữ (Groq Whisper)</summary><div class="bas-panel"><p class="bah-note">Chọn tệp âm thanh dưới 20 MB. Tệp được gửi tới Groq bằng API key của bạn. Không tải tệp lên nếu chứa thông tin riêng tư.</p><input id="basAudio" type="file" accept="audio/*,.mp3,.mp4,.m4a,.wav,.webm,.ogg"><button id="basTranscribe" type="button" class="bas-main">🎙 CHÉP LỜI ÂM THANH</button></div></details>
-        <div id="basStatus" class="bas-status" role="status">Sẵn sàng. Chọn tác vụ, nhập nội dung và bắt đầu.</div>
       </section>
     </section>
     <section id="youtubeVideoPage" class="tool-page">
@@ -1707,7 +1712,7 @@
 
         <div class="flow-batch-quick-actions">
           <button id="flowBatchOpenBtn" class="flow-batch-outline" type="button">↗ MỞ GOOGLE FLOW</button>
-          <button id="flowBatchCheckBtn" class="flow-batch-outline" type="button">✓ KIỂM TRA FLOW</button><button id="flowBatchAiPromptBtn" class="flow-batch-outline" type="button">✦ AI TẠO PROMPT</button>
+          <button id="flowBatchCheckBtn" class="flow-batch-outline" type="button">✓ KIỂM TRA FLOW</button><button id="flowBatchAiPromptBtn" class="flow-batch-outline" type="button">✦ CREATING FLOW</button>
         </div>
 
         <div class="flow-batch-editor">
@@ -1864,7 +1869,7 @@ Prompt 3"></textarea>
         </div>
       </section>
     </section>
-    <div class="babylon-latest-version" aria-label="Phiên bản BaByLon mới nhất">Bản cập nhật mới nhất · v1.43.16</div>
+    <div class="babylon-latest-version" aria-label="Phiên bản BaByLon mới nhất">Bản cập nhật mới nhất · v1.44.8</div>
   </main>
   <script src="popup.js"></script>
   <script src="date-checker.js"></script>
@@ -1875,7 +1880,9 @@ Prompt 3"></textarea>
   <script src="twofa.js"></script>
   <script src="gemini-api-center.js"></script>
   <script src="ai-provider-hub.js"></script>
-  <script src="ai-studio.js"></script>
+  <script src="creating-flow-core.js"></script>
+  <script src="creating-flow-driver.js"></script>
+  <script src="creating-flow.js"></script>
   <script src="translator.js"></script>
   <script src="qr-tool.js"></script>
   <script src="flow-batch.js"></script>

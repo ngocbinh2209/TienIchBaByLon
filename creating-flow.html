@@ -1,0 +1,21 @@
+<!doctype html><html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Creating Flow · BaByLon</title><link rel="stylesheet" href="creating-flow.css"></head><body class="cf-standalone">    <section id="creatingFlowPage" class="tool-page">
+      <section class="card cf-shell">
+        <header class="cf-hero"><span>✦</span><div><h2>Creating Flow</h2><p>Tạo ảnh &amp; video hàng loạt · Tự động tải về</p></div></header>
+        <div class="cf-body">
+          <div class="cf-row"><label>Loại nội dung<select id="cfMode"><option value="image">Hình ảnh</option><option value="video">Video</option></select></label><label>Chờ tối đa mỗi prompt<select id="cfTimeout"><option value="60">1 phút</option><option value="120">2 phút</option><option value="180" selected>3 phút</option></select></label></div>
+          <label for="cfTab">Dự án Flow đang mở</label><div class="cf-tab-row"><select id="cfTab" aria-label="Chọn dự án Flow"></select><button id="cfRefresh" type="button">Làm mới</button></div>
+          <label for="cfPrompts">Prompt hàng loạt <span id="cfCount">0 prompt</span></label>
+          <textarea id="cfPrompts" rows="8" placeholder="Một chú mèo ngồi bên cửa sổ, ánh nắng buổi sáng&#10;Một ngôi nhà nhỏ giữa rừng thông, phong cách hoạt hình&#10;Một con thuyền trên hồ yên tĩnh lúc hoàng hôn"></textarea>
+          <p class="cf-hint">Mỗi dòng là một prompt. Gửi lần lượt từng prompt; chỉ gửi tiếp khi kết quả trước đã tạo và lưu xong. Tối đa 100 prompt mỗi đợt.</p>
+          <label>Số bắt đầu<input id="cfStartNumber" type="number" min="1" step="1" value="1" inputmode="numeric" style="width:100%;box-sizing:border-box;padding:10px;border:1px solid #dce1ee;border-radius:8px"></label>
+          <div class="cf-folder"><button id="cfFolder" type="button">📁 Chọn thư mục lưu</button><span id="cfFolderName">Chưa chọn thư mục</span></div>
+          <p class="cf-hint">Rê lên kết quả → ⋮ → Tải xuống → 2K. Tự lưu 1.png, 2.png… hoặc 1.mp4, 2.mp4… theo thứ tự ghi file thành công. Đuôi file theo định dạng thật. Đặt tên từ số bắt đầu đã nhập, tăng 1 sau mỗi file lưu thành công. Không ghi đè file đã có.</p>
+          <div class="cf-actions"><button id="cfStart" class="cf-primary" type="button">▶ Bắt đầu tạo &amp; tải</button><button id="cfStop" type="button" disabled>■ Dừng</button></div>
+          <button id="cfWindow" class="cf-window" type="button">↗ Mở cửa sổ chạy riêng</button>
+          <p class="cf-hint">Giữ cửa sổ Creating Flow mở và tab Flow còn hoạt động. Không tạo thủ công hoặc chạy Flow Auto đồng thời trong cùng dự án. Dừng ở đây không hủy tác vụ đã gửi lên Flow.</p>
+          <div id="cfStatus" class="cf-status" role="status">Chọn dự án, nhập prompt và chọn thư mục để bắt đầu.</div>
+          <div class="cf-progress"><strong id="cfSummary">Chưa có đợt chạy</strong></div>
+          <ol id="cfQueue" class="cf-queue" aria-label="Tiến độ từng prompt"></ol>
+        </div>
+      </section>
+    </section><script src="creating-flow-core.js"></script><script src="creating-flow-driver.js"></script><script src="creating-flow.js"></script></body></html>
